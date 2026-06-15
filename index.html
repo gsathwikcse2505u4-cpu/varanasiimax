@@ -364,11 +364,11 @@
             filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.8));
         }
 
-        /* FIXED ASPECT RATIO MARGIN ADJUSTER GAP ENGINE */
+        /* FILMED CONTEXT TITLE SPACER AND RESPONSIVE VIEW GAP ADDITION */
         p.subtitle { 
             font-size: 1rem; 
             color: #cccccc; 
-            margin-bottom: 2.5rem; 
+            margin-bottom: 4rem; /* Increased to generate distinct separation gap */
             padding: 0 10px;
             max-width: 800px; 
             text-shadow: 0 2px 8px rgba(0,0,0,0.6); 
@@ -584,15 +584,15 @@
         .video-embed { width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #000; border: var(--glass-border); }
         .video-embed iframe { width: 100%; height: 100%; }
 
-        /* --- FIXED: FULL SCREEN ABSOLUTE STACKING LAYER OVERLAY ENGINE --- */
+        /* --- RESTORED LIGHTBOX OVERLAY SCREEN ENGINE --- */
         .vfx-overlay-screen {
             position: fixed !important;
             top: 0 !important;
             left: 0 !important;
             width: 100vw !important;
             height: 100vh !important;
-            background-color: rgba(2, 2, 2, 0.8) !important;
-            z-index: 99999 !important; /* Forces layout to float cleanly over footers */
+            background-color: rgba(3, 3, 3, 0.9) !important;
+            z-index: 999999 !important; /* Floats safely on top of everything */
             display: flex !important; 
             flex-direction: column !important;
             align-items: center !important;
@@ -610,8 +610,8 @@
         .vfx-overlay-screen.is-open {
             opacity: 1 !important;
             visibility: visible !important;
-            backdrop-filter: blur(30px) !important;
-            -webkit-backdrop-filter: blur(30px) !important;
+            backdrop-filter: blur(35px) !important;
+            -webkit-backdrop-filter: blur(35px) !important;
         }
 
         .vfx-container {
@@ -795,13 +795,148 @@
             transform: translateZ(0);
         }
 
-        /* Fixed structural sizing context rule for Instagram Logo Link Card */
+        .support-info-block {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex: 1;
+        }
+
+        .support-title {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            margin-bottom: 0.75rem;
+        }
+
+        .support-text {
+            color: #cbd5e1;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            margin-bottom: 1.4rem;
+        }
+
+        .upi-block {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.4rem;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.3s ease;
+        }
+        .upi-block:hover { border-color: rgba(255,255,255,0.2); }
+
+        .upi-label {
+            color: #e5c158;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .upi-id-text {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: none;
+            color: #e5c158;
+            cursor: pointer;
+            padding: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--water-duration) var(--water-transition);
+        }
+        .copy-btn:hover {
+            color: #fff;
+            transform: scale(1.2);
+        }
+        .copy-btn svg {
+            width: 16px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .support-subtext {
+            color: #888888;
+            font-size: 0.85rem;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .support-actions-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .qr-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+            transition: all var(--water-duration) var(--water-transition);
+        }
+        .qr-wrapper:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); }
+        .qr-wrapper:hover .qr-element { transform: scale(1.04); }
+        .qr-element {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            border-radius: 4px;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+            transition: transform var(--water-duration) var(--water-transition);
+        }
+
+        .instagram-link-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+            width: 166px;
+            height: 166px;
+            text-decoration: none;
+            transition: all var(--water-duration) var(--water-transition);
+        }
+        .instagram-link-card:hover { border-color: rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.05); transform: translateY(-4px); }
+        .instagram-link-card:hover .instagram-icon-element { transform: scale(1.1) rotate(3deg); }
+        .instagram-link-card:hover .instagram-card-label { color: #fff; }
+
         .instagram-link-card .instagram-icon-element {
             width: 56px !important;
             height: 64px !important;
             max-width: 56px !important;
             max-height: 64px !important;
             object-fit: contain !important;
+        }
+        .instagram-card-label {
+            color: #b5b5b5;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 12px;
+            transition: color 0.3s ease;
         }
 
         /* --- CRITICAL: FULLSCREEN SCALE CALCULATOR HARDWARE ENGINE --- */
@@ -961,7 +1096,7 @@
         </div>
     </nav>
 
-    <!-- FIXED VFX LIGHTBOX INTERSTITIAL PORTAL CONTAINER -->
+    <!-- FIXED VFX LIGHTBOX INTERSTITIAL OVERLAY SCREEN -->
     <div id="vfxPlayerOverlay" class="vfx-overlay-screen">
         <div class="vfx-container">
             <div class="vfx-header-area">
@@ -989,14 +1124,14 @@
         <img src="title.png" alt="Explore Premium Formats VARANASI Cinematic Teaser Title Badge" decoding="async">
     </div>
 
-    <!-- REPOSITIONED ELEMENT MARGIN WITH ADDED SPACE -->
+    <!-- CLEAN GENERATED RESPONSIVE DIRECTIONAL VIEW GAP -->
     <p class="subtitle">Explore the differences of each film format by selecting the format name and seeing the trailer adjust to the accompanying aspect ratio.</p>
 
     <div id="playerContainer" class="player-container">
         <div class="video-area">
             <div class="video-wrapper" id="videoWrapper">
                 <img id="formatOverlay" class="format-overlay" src="" alt="Active Cinema Format Overlay Badge" style="display: none;" decoding="async">
-                <video class="main-video" id="myVideo" src="https://www.dropbox.com/scl/fi/15yp2m1xk8putf2an8343/varanasi.mp4?rlkey=kves9aonxo4n3spr5yop3ldjt&st=v9nqqi5t&raw=1" poster="1.43.png" preload="auto" loop muted playsinline controls></video>
+                <video class="main-video" id="myVideo" src="https://www.dropbox.com/scl/fi/15yp2m1xk8putf2an8343/varanasi.mp4?rlkey=kves9aonxo4n3spr5yop3ldjt&st=v9nqqi5t&raw=1" poster="1.43.png" preload="auto" loop muted playsinline controls controlsList="nofullscreen"></video>
             </div>
         </div>
 
@@ -1057,6 +1192,7 @@
                 <svg viewBox="0 0 24 24">
                     <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
                 </svg>
+                <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
                 <span class="format-title" style="font-size: 0.8rem;" id="fsText">FULLSCREEN</span>
             </button>
         </div>
@@ -1074,6 +1210,7 @@
         </div>
     </section>
 
+    <!-- RESTORED COMPACT SUPPORT MECHANICS BOX -->
     <section class="support-container">
         <div class="support-info-block">
             <h2 class="support-title">Support the Developer</h2>
