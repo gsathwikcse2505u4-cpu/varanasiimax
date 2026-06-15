@@ -2,24 +2,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEARCH ENGINE TITLE FOCUS -->
     <title>IMAX FORMATS & Dolby Vision Explorer | Starvel Studios</title>
     
-    <!-- SEARCH RESULT SNIPPET DESCRIPTION -->
     <meta name="description" content="Experience S.S. Rajamouli's Varanasi starring Superstar Mahesh Babu. Explore premium theatre exhibition frameworks, custom CGI VFX breakdowns, and seamless true 1.43:1 IMAX format aspect ratio switches.">
     
-    <!-- TARGET SEARCH QUERY KEYWORDS -->
     <meta name="keywords" content="IMAX, Dolby Vision, aspect ratio, Varanasi, Starvel Studios, Mahesh Babu, cinema theatre, premium formats, SSMB29, VFX shots, G Sathwik">
     <meta name="author" content="G. Sathwik">
     
-    <!-- OPEN GRAPH SNIPPET CONFIGURATIONS -->
     <meta property="og:title" content="IMAX FORMATS & Dolby Vision Explorer | Starvel Studios">
     <meta property="og:description" content="Interactive format explorer for S.S. Rajamouli's Varanasi teaser. Switch between true IMAX 70mm, CinemaScope, and Dolby Vision aspect ratios in real time.">
     <meta property="og:image" content="1.43.png">
     <meta property="og:url" content="https://s4thw1k07.github.io/varanasiimax/">
     <meta property="og:type" content="website">
     
-    <!-- FAVICON LOGO LINK CONFIGURATION -->
     <link type="image/png" rel="icon" href="favicon.png">
     
     <link rel="preconnect" href="https://www.dropbox.com" crossorigin>
@@ -795,182 +790,19 @@
             transform: translateZ(0);
         }
 
-        @media (max-width: 768px) {
-            .support-container {
-                flex-direction: column;
-                text-align: center;
-                gap: 1.5rem;
-            }
-            .support-info-block {
-                align-items: center !important;
-            }
-            .support-actions-wrapper {
-                width: 100%;
-                justify-content: center;
-            }
+        /* --- CRITICAL: FULLSCREEN SCALE CALCULATOR HARDWARE ENGINE --- */
+        .player-container:fullscreen .video-wrapper,
+        .player-container:-webkit-full-screen .video-wrapper {
+            border: none !important;
+            border-radius: 12px !important;
+            box-shadow: 0 0 50px rgba(0,0,0,0.9) !important;
+            width: calc(100vh * var(--current-ratio)) !important;
+            height: auto !important;
+            max-width: 100vw !important;
+            max-height: calc(100vh - 120px) !important; 
+            aspect-ratio: var(--current-ratio) / 1 !important;
         }
 
-        .support-info-block {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            flex: 1;
-        }
-
-        .support-title {
-            color: #fff;
-            font-size: 1.5rem;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-            margin-bottom: 0.75rem;
-        }
-
-        .support-text {
-            color: #cbd5e1;
-            font-size: 1.05rem;
-            line-height: 1.5;
-            margin-bottom: 1.4rem;
-        }
-
-        .upi-block {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 1.4rem;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 0.6rem 1.2rem;
-            border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.08);
-            transition: all 0.3s ease;
-        }
-        .upi-block:hover { border-color: rgba(255,255,255,0.2); }
-
-        .upi-label {
-            color: #e5c158;
-            font-weight: 700;
-            font-size: 1rem;
-            letter-spacing: 0.5px;
-        }
-
-        .upi-id-text {
-            color: #fff;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .copy-btn {
-            background: transparent;
-            border: none;
-            color: #e5c158;
-            cursor: pointer;
-            padding: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all var(--water-duration) var(--water-transition);
-        }
-        
-        .copy-btn:hover {
-            color: #fff;
-            transform: scale(1.2);
-        }
-
-        .copy-btn svg {
-            width: 16px;
-            height: 18px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 2.2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .support-subtext {
-            color: #888888;
-            font-size: 0.85rem;
-            font-style: italic;
-            line-height: 1.4;
-        }
-
-        .support-actions-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .qr-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 12px;
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
-            transition: all var(--water-duration) var(--water-transition);
-        }
-
-        .qr-element {
-            width: 140px;
-            height: 140px;
-            object-fit: contain;
-            border-radius: 4px;
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
-            transition: transform var(--water-duration) var(--water-transition);
-        }
-
-        .qr-wrapper:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); }
-        .qr-wrapper:hover .qr-element { transform: scale(1.04); }
-
-        .instagram-link-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 12px;
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
-            width: 166px;
-            height: 166px;
-            text-decoration: none;
-            transition: all var(--water-duration) var(--water-transition);
-        }
-
-        .instagram-icon-element {
-            width: 56px;
-            height: 64px;
-            object-fit: contain;
-            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
-            transition: transform var(--water-duration) var(--water-transition);
-        }
-
-        .instagram-card-label {
-            color: #b5b5b5;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 12px;
-            transition: color 0.3s ease;
-        }
-
-        .instagram-link-card:hover {
-            border-color: rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateY(-4px);
-        }
-
-        .instagram-link-card:hover .instagram-icon-element {
-            transform: scale(1.1) rotate(3deg);
-        }
-
-        .instagram-link-card:hover .instagram-card-label {
-            color: #fff;
-        }
-
-        /* --- CRITICAL: FULLSCREEN ENGINE HARDWARE LAYERS OVERRIDES --- */
         .player-container:fullscreen {
             max-width: none !important;
             width: 100vw !important;
@@ -1005,17 +837,6 @@
             flex-grow: 1 !important;
         }
 
-        .player-container:fullscreen .video-wrapper,
-        .player-container:-webkit-full-screen .video-wrapper {
-            border: none !important;
-            border-radius: 12px !important;
-            height: 100% !important;
-            width: auto !important;
-            max-width: 100% !important;
-            aspect-ratio: var(--current-ratio) / 1 !important;
-            box-shadow: 0 0 50px rgba(0,0,0,0.9) !important;
-        }
-
         .player-container:fullscreen .controls,
         .player-container:-webkit-full-screen .controls {
             width: auto !important;
@@ -1030,6 +851,35 @@
             align-items: center !important;
         }
 
+        /* --- CROSS DEVICE CROSS-BROWSER OVERRIDES --- */
+        @media (max-width: 768px) {
+            body { padding: 0 1rem 1rem 1rem; }
+            .support-container { flex-direction: column; text-align: center; gap: 1.5rem; }
+            .support-info-block { align-items: center !important; }
+            .support-actions-wrapper { width: 100%; justify-content: center; }
+        }
+
+        @media (max-width: 600px) {
+            .controls {
+                flex-wrap: nowrap !important;
+                justify-content: flex-start !important;
+                overflow-x: auto !important;
+                padding: 0.5rem 1rem 1rem 1rem !important;
+                width: 100vw !important;
+                -webkit-overflow-scrolling: touch;
+            }
+            .format-btn, .fullscreen-btn { flex-shrink: 0 !important; }
+            .divider { display: none !important; }
+        }
+
+        @media (max-width: 560px) {
+            .dropdown-menu {
+                width: calc(100vw - 2rem) !important;
+                right: calc(-1 * (100vw - 2rem - 100%) / 2) !important;
+                grid-template-columns: 1fr !important;
+            }
+        }
+
         @supports not (backdrop-filter: blur(10px)) {
             .navbar { background: rgba(15, 15, 15, 0.95); }
             .dropdown-menu { background: rgba(10, 10, 10, 0.98); }
@@ -1038,14 +888,12 @@
         }
     </style></head><body>
 
-    <!-- BOT INDEX CRITICAL Heading STRUCTURE -->
     <h1 style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">
         IMAX FORMATS & Dolby Vision Theatre Experience - Varanasi (SSMB29) Starring Mahesh Babu by Starvel Studios
     </h1>
 
     <nav class="navbar">
         <div class="nav-logo-container">
-            <!-- STARVEL LOGO SYNC -->
             <img class="nav-logo" src="favicon.png" alt="Starvel Studios Production House Logo" decoding="async">
         </div>
         <div class="nav-right-side">
@@ -1092,19 +940,6 @@
                                 <div class="dropdown-item-desc">Watch shot breakdown with Dolby Vision.</div>
                             </div>
                         </div>
-
-                        <!-- NEW VIDEO TILE HOLDER -->
-                        <!-- 
-                        <div class="dropdown-item" onclick="playVfxInline('VIDEO_URL_HERE', 'VIDEO_TITLE_HERE', 'THUMBNAIL_IMAGE_HERE', false)">
-                            <div class="dropdown-item-thumb">
-                                <img src="THUMBNAIL_IMAGE_HERE" alt="New Clip Thumbnail" decoding="async">
-                            </div>
-                            <div class="dropdown-item-meta">
-                                <span>NEW TITLE</span>
-                                <div class="dropdown-item-desc">New video descriptions layout.</div>
-                            </div>
-                        </div> 
-                        -->
                     </div>
                 </li>
             </ul>
