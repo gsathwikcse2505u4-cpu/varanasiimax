@@ -795,12 +795,20 @@
             transform: translateZ(0);
         }
 
-        /* Fixed structural sizing context rule for Instagram Logo Link Card */
+        /* HARD LOCKED SIZING MECHANICS FOR ACTION MEDIA BLOCKS */
         .instagram-link-card .instagram-icon-element {
             width: 56px !important;
             height: 64px !important;
             max-width: 56px !important;
             max-height: 64px !important;
+            object-fit: contain !important;
+        }
+
+        .qr-wrapper .qr-element {
+            width: 140px !important;
+            height: 140px !important;
+            max-width: 140px !important;
+            max-height: 140px !important;
             object-fit: contain !important;
         }
 
