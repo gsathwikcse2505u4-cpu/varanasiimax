@@ -423,12 +423,13 @@
             width: 100%;
             aspect-ratio: var(--current-ratio) / 1;
             background: #000;
-            border-radius: 0px !important; /* CRITICAL FIX: Explicit edge sharpening */
+            border-radius: 0px !important;
             overflow: visible !important;
             border: 1px solid rgba(255,255,255,0.10);
             box-shadow: 0 20px 60px rgba(0,0,0,0.8);
             transition:
-                aspect-ratio 0.9s var(--spring),
+                aspect-ratio 0.85s cubic-bezier(0.25, 1, 0.25, 1),
+                width 0.85s cubic-bezier(0.25, 1, 0.25, 1),
                 box-shadow var(--dur) var(--spring);
         }
 
@@ -463,16 +464,16 @@
         }
 
         /* ============================================================
-            FORMAT BUTTONS — Fixed Grid, No Truncation or Spilling
+            FORMAT BUTTONS — Centered Flex Wrapping Configuration
            ============================================================ */
         .controls {
             display: flex;
             gap: 12px;
             align-items: center;
             justify-content: center;
-            flex-wrap: wrap !important; /* Fixed wrapping bounds */
+            flex-wrap: wrap !important;
             padding: 0.5rem 0;
-            overflow-x: visible !important; /* Removed dynamic cutting scroll */
+            overflow-x: visible !important;
         }
 
         .format-btn {
@@ -496,7 +497,7 @@
             box-shadow:
                 0 1px 0 rgba(255,255,255,0.28) inset,
                 0 6px 20px rgba(0,0,0,0.3);
-            flex-shrink: 0 !important; /* Locks structural layout metrics */
+            flex-shrink: 0 !important;
         }
 
         .format-btn::before {
@@ -704,7 +705,7 @@
             font-size: 0.95rem;
             color: rgba(255,255,255,0.65);
             line-height: 1.5;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.4rem;
         }
 
         .upi-pill {
@@ -999,7 +1000,7 @@
             width: 100%;
             aspect-ratio: 16/9;
             background: #000;
-            border-radius: 0px !important; /* FIXED: Removed corners styling */
+            border-radius: 0px !important;
             overflow: visible !important;
             border: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 30px 80px rgba(0,0,0,0.85);
@@ -1032,7 +1033,7 @@
         }
 
         /* ============================================================
-            FULLSCREEN OVERRIDES — Unified No Curve Configurations
+            FULLSCREEN OVERRIDES — DYNAMIC WIDTH SCALING FIXED MATRIX
            ============================================================ */
         #playerContainer:fullscreen,
         #playerContainer:-webkit-full-screen {
@@ -1049,11 +1050,13 @@
 
         #playerContainer:fullscreen .video-wrapper,
         #playerContainer:-webkit-full-screen .video-wrapper {
-            width: auto !important;
+            border-radius: 0px !important;
+            /* CALCULATES BOUNDS ACCORDING TO USER RATIO SELECTION IN REAL-TIME */
+            width: calc((100vh - 140px) * var(--current-ratio)) !important;
             height: calc(100vh - 140px) !important;
-            aspect-ratio: var(--current-ratio) / 1 !important;
             max-width: 100vw !important;
-            border-radius: 0px !important; /* FIXED: Absolute uncurved edges */
+            max-height: 100vh !important;
+            aspect-ratio: var(--current-ratio) / 1 !important;
         }
 
         #playerContainer:fullscreen .video-area,
@@ -1067,12 +1070,12 @@
 
         #playerContainer:fullscreen .controls,
         #playerContainer:-webkit-full-screen .controls {
-            flex-wrap: wrap !important; /* FIXED: Locks responsive layout boundaries */
+            flex-wrap: wrap !important;
             overflow-x: visible !important;
         }
 
         /* ============================================================
-            MOBILE VIEWPORT MEDIA HANDLERS
+            MOBILE COHESION LAYER
            ============================================================ */
         @media (max-width: 768px) {
             .support-card {
@@ -1084,7 +1087,6 @@
         }
 
         @media (max-width: 740px) {
-            /* Safely scales down controls box bounds on target small viewports */
             .controls {
                 max-width: 380px;
                 margin: 0 auto;
@@ -1517,6 +1519,7 @@ function copyUpi() {
     });
 }
 
+// --- View Toast Notification ---
 function showToast() {
     const toast = document.getElementById('toast');
     toast.classList.add('show');
@@ -1542,7 +1545,7 @@ function loadViews() {
         });
 }
 
-// --- Playback Init ---
+// --- Playback Initialization Engine ---
 function initPlayback() {
     loadViews();
 
