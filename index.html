@@ -33,7 +33,6 @@
             iOS 26 LIQUID GLASS — DESIGN TOKENS
            ============================================================ */
         :root {
-            /* Liquid Glass Core */
             --lg-bg:            rgba(255,255,255,0.06);
             --lg-bg-hover:      rgba(255,255,255,0.13);
             --lg-bg-active:     rgba(255,255,255,0.18);
@@ -42,7 +41,6 @@
             --lg-shine-top:     rgba(255,255,255,0.55);
             --lg-shine-bot:     rgba(255,255,255,0.0);
 
-            /* Specular highlight gradient — the "glass edge" */
             --lg-specular: linear-gradient(
                 135deg,
                 rgba(255,255,255,0.55) 0%,
@@ -51,30 +49,21 @@
                 rgba(255,255,255,0.08) 100%
             );
 
-            /* Gold accent */
             --gold:         #e8c96e;
             --gold-glow:    rgba(232,201,110,0.28);
             --gold-subtle:  rgba(232,201,110,0.10);
-
-            /* Typography */
             --font: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-
-            /* Motion — Apple "fluid spring" */
             --spring: cubic-bezier(0.25, 1, 0.35, 1);
             --spring-fast: cubic-bezier(0.22, 1, 0.36, 1);
             --dur: 0.55s;
             --dur-fast: 0.3s;
 
-            /* Spacing */
             --page-px: clamp(1rem, 4vw, 2.5rem);
             --radius-card: 22px;
             --radius-btn: 18px;
             --radius-pill: 50px;
         }
 
-        /* ============================================================
-            RESET & BASE
-           ============================================================ */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
@@ -98,9 +87,6 @@
             padding-right: env(safe-area-inset-right);
         }
 
-        /* ============================================================
-            BACKGROUND — Ambient cinematic layer
-           ============================================================ */
         #bgVideo {
             position: fixed;
             inset: 0;
@@ -126,9 +112,6 @@
             pointer-events: none;
         }
 
-        /* ============================================================
-            PAGE WRAPPER
-           ============================================================ */
         .page-wrapper {
             position: relative;
             z-index: 2;
@@ -138,9 +121,6 @@
             padding-bottom: 3rem;
         }
 
-        /* ============================================================
-            LIQUID GLASS MIXIN — applied via utility class
-           ============================================================ */
         .glass {
             background: var(--lg-bg);
             backdrop-filter: blur(28px) saturate(1.6);
@@ -165,9 +145,6 @@
             z-index: 1;
         }
 
-        /* ============================================================
-            PAGE ENTRANCE ANIMATION
-           ============================================================ */
         @keyframes riseIn {
             from { opacity: 0; transform: translateY(28px) scale(0.975); }
             to   { opacity: 1; transform: translateY(0)    scale(1); }
@@ -185,13 +162,6 @@
         .delay-6 { animation-delay: 0.40s; }
         .delay-7 { animation-delay: 0.47s; }
 
-        @media (prefers-reduced-motion: reduce) {
-            .animate-in { animation: none; opacity: 1; }
-        }
-
-        /* ============================================================
-            NAVBAR
-           ============================================================ */
         .navbar {
             width: 100%;
             padding: 0.7rem var(--page-px);
@@ -221,7 +191,6 @@
         }
         .nav-logo:hover { transform: scale(1.07); }
 
-        /* ---------- VFX Dropdown ---------- */
         .dropdown { position: relative; }
 
         .dropdown-trigger {
@@ -267,7 +236,6 @@
             transform: rotate(180deg);
         }
 
-        /* ---------- Dropdown Menu Grid ---------- */
         .dropdown-menu {
             position: absolute;
             top: calc(100% + 10px);
@@ -352,14 +320,12 @@
             transition: color var(--dur-fast);
         }
         .di-desc {
+            color: #88內;
             color: #888;
             font-size: 0.74rem;
             line-height: 1.35;
         }
 
-        /* ============================================================
-            HERO AREA
-           ============================================================ */
         .hero {
             width: 100%;
             display: flex;
@@ -387,9 +353,6 @@
             font-weight: 400;
         }
 
-        /* ============================================================
-            PLAYER CONTAINER
-           ============================================================ */
         .player-section {
             width: 100%;
             max-width: 1040px;
@@ -463,9 +426,6 @@
             transition: opacity 0.4s ease;
         }
 
-        /* ============================================================
-            FORMAT BUTTONS — Centered Flex Wrapping Configuration
-           ============================================================ */
         .controls {
             display: flex;
             gap: 12px;
@@ -532,7 +492,6 @@
                 0 14px 34px rgba(0,0,0,0.45);
         }
 
-        /* CRITICAL LOGO GUARDRAILS — Stops blue graphics turning orange when active */
         .format-btn.active {
             color: #fff;
             background: rgba(255,255,255,0.15);
@@ -624,9 +583,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* ============================================================
-            INFO SECTION
-           ============================================================ */
         .info-section {
             width: 100%;
             max-width: 900px;
@@ -682,9 +638,6 @@
             display: block;
         }
 
-        /* ============================================================
-            SUPPORT SECTION
-           ============================================================ */
         .support-section {
             width: 100%;
             max-width: 900px;
@@ -818,9 +771,6 @@
         }
         .action-card:hover .action-label { color: rgba(255,255,255,0.85); }
 
-        /* ============================================================
-            FOOTER
-           ============================================================ */
         .footer {
             padding: 2rem var(--page-px) 1rem;
             text-align: center;
@@ -852,9 +802,6 @@
         }
         .view-counter span { color: var(--gold); font-weight: 700; }
 
-        /* ============================================================
-            VFX LIGHTBOX OVERLAY
-           ============================================================ */
         .vfx-overlay {
             position: fixed;
             inset: 0;
@@ -1043,7 +990,7 @@
         }
 
         /* ============================================================
-            FULLSCREEN OVERRIDES — DYNAMIC VIEWPORT DIMENSIONS APPLIED
+            FULLSCREEN ENGINE DYNAMIC CONTAINER AUTO-SCALE CALCULATOR
            ============================================================ */
         #playerContainer:fullscreen,
         #playerContainer:-webkit-full-screen {
@@ -1058,14 +1005,14 @@
             align-items: center !important;
         }
 
+        /* FIXED: FORCES RATIO RESIZING ALONG THE VIEWPORT VECTOR DIRECTLY */
         #playerContainer:fullscreen .video-wrapper,
         #playerContainer:-webkit-full-screen .video-wrapper {
             border-radius: 0px !important;
-            /* CRITICAL: FORCES AUTO-SCALE ALONG VIEWPORT RATIO VECTOR LINES */
-            width: calc((100vh - 160px) * var(--current-ratio)) !important;
             height: calc(100vh - 160px) !important;
+            width: calc((100vh - 160px) * var(--current-ratio)) !important;
             max-width: 100vw !important;
-            max-height: 100vh !important;
+            max-height: calc(100vh - 160px) !important;
             aspect-ratio: var(--current-ratio) / 1 !important;
         }
 
@@ -1085,7 +1032,7 @@
         }
 
         /* ============================================================
-            MOBILE VIEWPORT BREAKPOINTS
+            MOBILE BREAKPOINTS
            ============================================================ */
         @media (max-width: 768px) {
             .support-card {
