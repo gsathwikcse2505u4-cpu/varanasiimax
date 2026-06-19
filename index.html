@@ -532,6 +532,7 @@
                 0 14px 34px rgba(0,0,0,0.45);
         }
 
+        /* CRITICAL LOGO GUARDRAILS — Stops blue graphics turning orange when active */
         .format-btn.active {
             color: #fff;
             background: rgba(255,255,255,0.15);
@@ -542,6 +543,15 @@
                 0 0 0 1px var(--gold),
                 0 16px 36px var(--gold-glow),
                 0 8px 16px rgba(0,0,0,0.4);
+        }
+
+        .format-btn.active .btn-icon:not(.btn-image-no-tint) {
+            filter: none !important;
+        }
+
+        .btn-image-no-tint {
+            filter: none !important;
+            mix-blend-mode: normal !important;
         }
 
         .btn-icon {
@@ -1033,7 +1043,7 @@
         }
 
         /* ============================================================
-            FULLSCREEN OVERRIDES — DYNAMIC WIDTH SCALING FIXED MATRIX
+            FULLSCREEN OVERRIDES — DYNAMIC VIEWPORT DIMENSIONS APPLIED
            ============================================================ */
         #playerContainer:fullscreen,
         #playerContainer:-webkit-full-screen {
@@ -1041,7 +1051,7 @@
             width: 100vw !important;
             height: 100vh !important;
             background: #000 !important;
-            padding: 24px !important;
+            padding: 30px !important;
             display: flex !important;
             flex-direction: column !important;
             justify-content: space-between !important;
@@ -1051,9 +1061,9 @@
         #playerContainer:fullscreen .video-wrapper,
         #playerContainer:-webkit-full-screen .video-wrapper {
             border-radius: 0px !important;
-            /* CALCULATES BOUNDS ACCORDING TO USER RATIO SELECTION IN REAL-TIME */
-            width: calc((100vh - 140px) * var(--current-ratio)) !important;
-            height: calc(100vh - 140px) !important;
+            /* CRITICAL: FORCES AUTO-SCALE ALONG VIEWPORT RATIO VECTOR LINES */
+            width: calc((100vh - 160px) * var(--current-ratio)) !important;
+            height: calc(100vh - 160px) !important;
             max-width: 100vw !important;
             max-height: 100vh !important;
             aspect-ratio: var(--current-ratio) / 1 !important;
@@ -1075,7 +1085,7 @@
         }
 
         /* ============================================================
-            MOBILE COHESION LAYER
+            MOBILE VIEWPORT BREAKPOINTS
            ============================================================ */
         @media (max-width: 768px) {
             .support-card {
@@ -1248,13 +1258,13 @@
                 <div class="controls" role="group" aria-label="Cinema format selector">
 
                     <button class="format-btn" onclick="changeFormat(1.43,this,'imax-seeklogo.png',false)" aria-label="IMAX 70MM 1.43:1">
-                        <img class="btn-icon" src="imax-seeklogo.png" alt="IMAX" decoding="async">
+                        <img class="btn-icon btn-image-no-tint" src="imax-seeklogo.png" alt="IMAX" decoding="async">
                         <span class="btn-label">IMAX 70MM</span>
                         <span class="btn-ratio">1.43:1</span>
                     </button>
 
                     <button class="format-btn" onclick="changeFormat(1.90,this,'imax-seeklogo.png',false)" aria-label="IMAX Digital 1.90:1">
-                        <img class="btn-icon" src="imax-seeklogo.png" alt="IMAX Digital" decoding="async">
+                        <img class="btn-icon btn-image-no-tint" src="imax-seeklogo.png" alt="IMAX Digital" decoding="async">
                         <span class="btn-label">IMAX Digital</span>
                         <span class="btn-ratio">1.90:1</span>
                     </button>
@@ -1519,7 +1529,6 @@ function copyUpi() {
     });
 }
 
-// --- View Toast Notification ---
 function showToast() {
     const toast = document.getElementById('toast');
     toast.classList.add('show');
@@ -1545,7 +1554,7 @@ function loadViews() {
         });
 }
 
-// --- Playback Initialization Engine ---
+// --- Playback Init ---
 function initPlayback() {
     loadViews();
 
