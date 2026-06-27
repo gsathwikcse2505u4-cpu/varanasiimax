@@ -24,6 +24,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- PERFORMANCE OPTIMIZATION: High-Priority Preloading for Instant Thumbnail Delivery -->
     <link rel="preload" href="thumbnail.jpg" as="image">
     <link rel="preload" href="1.43.png" as="image">
     <link rel="preload" href="loop.mp4" as="video">
@@ -441,7 +442,7 @@
 
         .yt-tile-title {
             margin-top: 0.85rem;
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 700;
             color: #fff;
             letter-spacing: -0.1px;
@@ -451,6 +452,18 @@
         }
         .yt-tile-container:hover .yt-tile-title {
             color: var(--gold);
+        }
+
+        .yt-tile-desc {
+            margin-top: 0.6rem;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.5;
+            padding: 0 0.2rem;
+        }
+        .yt-tile-desc strong {
+            color: rgba(255,255,255,0.85);
+            font-weight: 600;
         }
 
         .yt-video-el {
@@ -1355,6 +1368,13 @@
                 <video id="ytInlineVideo" class="yt-video-el dolby-grade" src="https://www.dropbox.com/scl/fi/pv5saljoecekqa5gbstd8/Starvel-Phase-1.mp4?rlkey=e2mggconb74ij3brp2gz16syo&st=d6kxf87q&raw=1" controls playsinline></video>
             </div>
             <div class="yt-tile-title">Starvel Phase 1 Trailer</div>
+            
+            <!-- ADDED: Updated and refactored descriptive text -->
+            <p class="yt-tile-desc">
+                <strong>Starvel Studios</strong> is a cinematic franchise born from our childhood, spanning the years 2019 to 2026. The original founding crew includes Sathwik Gurram, Suhas, Darshan Inturi, Rithwik Gurram, Mohit Veerepalli, and Harshita Nelluri.
+                <br><br>
+                Beginning in 2027, we will return with a brand-new cast and crew, guided by directors with a unique vision.
+            </p>
         </div>
 
     </div>
