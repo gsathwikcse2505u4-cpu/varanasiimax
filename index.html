@@ -24,6 +24,8 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- PERFORMANCE OPTIMIZATION: Preloading critical high-priority visual assets -->
+    <link rel="preload" href="loop.mp4" as="video">
     <link rel="preload" href="imax-seeklogo.png" as="image">
     <link rel="preload" href="dolby.png" as="image">
     <link rel="preload" href="title.png" as="image">
@@ -128,6 +130,7 @@
             border: 1px solid var(--lg-border);
             position: relative;
             overflow: hidden;
+            transform: translateZ(0); /* PERFORMANCE: Force composite layer GPU rendering */
         }
 
         .glass::before {
@@ -320,7 +323,6 @@
             transition: color var(--dur-fast);
         }
         .di-desc {
-            color: #88內;
             color: #888;
             font-size: 0.74rem;
             line-height: 1.35;
@@ -351,6 +353,28 @@
             max-width: 600px;
             line-height: 1.6;
             font-weight: 400;
+        }
+
+        /* NEW CUSTOM DESIGN TOKENS FOR THE PHASE 1 TRIGGERS */
+        .phase1-trigger {
+            margin-top: 1.5rem;
+            padding: 0.8rem 2.2rem;
+            border-radius: var(--radius-pill);
+            background: linear-gradient(135deg, var(--gold) 0%, #b89b4a 100%);
+            color: #000;
+            font-family: var(--font);
+            font-weight: 800;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(232,201,110,0.4);
+            transition: all var(--dur-fast) var(--spring);
+        }
+        .phase1-trigger:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(232,201,110,0.6);
         }
 
         .player-section {
@@ -406,7 +430,7 @@
             transition: filter var(--dur) var(--spring);
         }
 
-        .main-video.dolby-grade {
+        .main-video.dolby-grade, .vfx-video-el.dolby-grade {
             filter: contrast(1.12) saturate(1.18) brightness(1.04);
         }
 
@@ -985,8 +1009,25 @@
             transition: filter var(--dur) var(--spring);
         }
 
-        .vfx-video-el.dolby-grade {
-            filter: contrast(1.12) saturate(1.18) brightness(1.04);
+        .play-overlay-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 65px;
+            height: 65px;
+            background: rgba(5,5,8,0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--gold);
+            pointer-events: none;
+            box-shadow: 0 0 25px rgba(232,201,110,0.4);
+            transition: transform 0.3s var(--spring);
+        }
+        #phase1ThumbContainer:hover .play-overlay-icon {
+            transform: translate(-50%, -50%) scale(1.15);
         }
 
         /* ============================================================
@@ -1005,7 +1046,6 @@
             align-items: center !important;
         }
 
-        /* FIXED: FORCES RATIO RESIZING ALONG THE VIEWPORT VECTOR DIRECTLY */
         #playerContainer:fullscreen .video-wrapper,
         #playerContainer:-webkit-full-screen .video-wrapper {
             border-radius: 0px !important;
@@ -1119,6 +1159,7 @@
 
 <div class="page-wrapper">
 
+    <!-- ALL ORIGINAL VIDEOS IN DROPDOWN FULLY RESTORED -->
     <nav class="navbar html-navbar-layer animate-in delay-1">
         <img class="nav-logo" src="favicon.png" alt="Starvel Studios Logo" decoding="async">
 
@@ -1181,6 +1222,9 @@
     <section class="hero animate-in delay-2">
         <img class="hero-title-img" src="title.png" alt="Varanasi — IMAX Format Explorer" decoding="async">
         <p class="hero-subtitle">Select a cinema format below to see how each aspect ratio transforms the Varanasi teaser in real time.</p>
+        
+        <!-- NEW FEATURE: STARVEL PHASE 1 TRIGGERS MODAL LAYER -->
+        <button class="phase1-trigger" onclick="openPhase1()">Starvel Phase 1</button>
     </section>
 
     <div class="player-section animate-in delay-3">
@@ -1202,6 +1246,7 @@
                     </div>
                 </div>
 
+                <!-- ALL ORIGINAL CONTROLS FULLY RESTORED -->
                 <div class="controls" role="group" aria-label="Cinema format selector">
 
                     <button class="format-btn" onclick="changeFormat(1.43,this,'imax-seeklogo.png',false)" aria-label="IMAX 70MM 1.43:1">
@@ -1310,12 +1355,40 @@
     <footer class="footer animate-in delay-7">
         <div class="footer-credit">Designed by <span>G. Sathwik</span></div>
         <div class="view-counter">Views: <span id="viewCount">—</span></div>
-    </footer>
+    </footer >
+</div>
+
+<!-- NEW FEATURE COMPONENT: THE DISCRETE STARVEL PHASE 1 CONTROLLER THEATER -->
+<div id="phase1Overlay" class="vfx-overlay" role="dialog" aria-modal="true" aria-label="Starvel Phase 1 Player">
+    <div class="vfx-panel">
+        <div class="vfx-header">
+            <span class="vfx-title" style="color: var(--gold); text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">Starvel Phase 1 Showcase</span>
+            <button class="back-btn" onclick="closePhase1()">✕ Close</button>
+        </div>
+        <div class="vfx-video-box">
+            <!-- Thumbnail State Container -->
+            <div id="phase1ThumbContainer" style="width: 100%; height: 100%; cursor: pointer; position: relative;" onclick="playPhase1Video()">
+                <img id="phase1Thumb" src="thumbnail.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Starvel Phase 1 Presentation Thumbnail">
+                <div class="play-overlay-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--gold)"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+            </div>
+            <!-- Video State Container (Injects custom hardware acceleration filters instantly) -->
+            <video id="phase1Video" class="vfx-video-el dolby-grade" style="display: none;" src="https://www.dropbox.com/scl/fi/pv5saljoecekqa5gbstd8/Starvel-Phase-1.mp4?rlkey=e2mggconb74ij3brp2gz16syo&st=d6kxf87q&raw=1" controls playsinline></video>
+        </div>
+    </div>
 </div>
 
 <div class="toast" id="toast">✓ UPI ID Copied!</div>
 
 <script>
+// --- PERFORMANCE CONTEXT: Globally Cache Reusable Core Media Elements ---
+const mainVid = document.getElementById('mainVideo');
+const bgVid   = document.getElementById('bgVideo');
+const phase1Overlay = document.getElementById('phase1Overlay');
+const phase1Video = document.getElementById('phase1Video');
+const phase1Thumb = document.getElementById('phase1ThumbContainer');
+
 // --- VFX Dropdown ---
 const vfxDropdown = document.getElementById('vfxDropdown');
 const vfxTriggerBtn = document.getElementById('vfxTriggerBtn');
@@ -1337,6 +1410,7 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
         vfxDropdown.classList.remove('is-active');
         closeVfx();
+        closePhase1();
     }
 });
 
@@ -1344,7 +1418,6 @@ document.addEventListener('keydown', e => {
 let vfxDolbyOn = false;
 
 function openVfx(src, title, poster, dolby) {
-    const mainVid = document.getElementById('mainVideo');
     const overlay = document.getElementById('vfxOverlay');
     const vid     = document.getElementById('vfxVideo');
     const titleEl = document.getElementById('vfxTitle');
@@ -1369,7 +1442,6 @@ function openVfx(src, title, poster, dolby) {
 function closeVfx() {
     const overlay = document.getElementById('vfxOverlay');
     const vid     = document.getElementById('vfxVideo');
-    const mainVid = document.getElementById('mainVideo');
 
     overlay.classList.remove('is-open');
     vid.pause();
@@ -1404,17 +1476,41 @@ function toggleDolby() {
     applyVfxDolby(vfxDolbyOn);
 }
 
+// --- NEW MODULE: STARVEL PHASE 1 ROUTINE ---
+function openPhase1() {
+    if (mainVid) mainVid.pause();
+    phase1Overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closePhase1() {
+    phase1Overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+    
+    phase1Video.pause();
+    phase1Video.currentTime = 0;
+    phase1Video.style.display = 'none';
+    phase1Thumb.style.display = 'block';
+
+    if (mainVid) mainVid.play().catch(() => {});
+}
+
+function playPhase1Video() {
+    phase1Thumb.style.display = 'none';
+    phase1Video.style.display = 'block';
+    phase1Video.play().catch(e => console.warn("Stream presentation delayed:", e));
+}
+
 // --- Format Switcher ---
 function changeFormat(ratio, btn, badgeSrc, dolby) {
     const container = document.getElementById('playerContainer');
-    const vid        = document.getElementById('mainVideo');
     const overlay    = document.getElementById('formatOverlay');
 
-    vid.classList.add('ratio-blur');
-    setTimeout(() => vid.classList.remove('ratio-blur'), 300);
+    mainVid.classList.add('ratio-blur');
+    setTimeout(() => mainVid.classList.remove('ratio-blur'), 300);
 
     container.style.setProperty('--current-ratio', ratio);
-    vid.classList.toggle('dolby-grade', dolby);
+    mainVid.classList.toggle('dolby-grade', dolby);
 
     if (badgeSrc) {
         overlay.src = badgeSrc;
@@ -1432,7 +1528,7 @@ function changeFormat(ratio, btn, badgeSrc, dolby) {
     btn.classList.add('active');
     btn.setAttribute('aria-pressed', 'true');
 
-    if (vid.paused) vid.play().catch(() => {});
+    if (mainVid.paused) mainVid.play().catch(() => {});
 }
 
 // --- Fullscreen ---
@@ -1504,9 +1600,6 @@ function loadViews() {
 // --- Playback Init ---
 function initPlayback() {
     loadViews();
-
-    const mainVid = document.getElementById('mainVideo');
-    const bgVid   = document.getElementById('bgVideo');
 
     const tryPlay = () => {
         if (mainVid) mainVid.play().catch(() => {});
