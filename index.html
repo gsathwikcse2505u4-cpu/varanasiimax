@@ -24,7 +24,8 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- PERFORMANCE OPTIMIZATION: Preloading critical high-priority visual assets -->
+    <link rel="preload" href="thumbnail.jpg" as="image">
+    <link rel="preload" href="1.43.png" as="image">
     <link rel="preload" href="loop.mp4" as="video">
     <link rel="preload" href="imax-seeklogo.png" as="image">
     <link rel="preload" href="dolby.png" as="image">
@@ -130,7 +131,7 @@
             border: 1px solid var(--lg-border);
             position: relative;
             overflow: hidden;
-            transform: translateZ(0); /* PERFORMANCE: Force composite layer GPU rendering */
+            transform: translateZ(0);
         }
 
         .glass::before {
@@ -355,9 +356,6 @@
             font-weight: 400;
         }
 
-        /* ============================================================
-            LAYOUT RECONSTRUCTION FOR SIDE-BY-SIDE TILES
-           ============================================================ */
         .main-showcase-grid {
             display: grid;
             grid-template-columns: 1.6fr 1fr;
@@ -378,7 +376,6 @@
             width: 100%;
         }
 
-        /* NEW YOUTUBE COMPACT TILE SYSTEM (RIGHT-SIDE) */
         .yt-tile-container {
             display: flex;
             flex-direction: column;
@@ -1081,9 +1078,6 @@
             transition: filter var(--dur) var(--spring);
         }
 
-        /* ============================================================
-            FULLSCREEN ENGINE DYNAMIC CONTAINER AUTO-SCALE CALCULATOR
-           ============================================================ */
         #playerContainer:fullscreen,
         #playerContainer:-webkit-full-screen {
             max-width: none !important;
@@ -1122,9 +1116,6 @@
             overflow-x: visible !important;
         }
 
-        /* ============================================================
-            MOBILE BREAKPOINTS
-           ============================================================ */
         @media (max-width: 992px) {
             .main-showcase-grid {
                 grid-template-columns: 1fr;
@@ -1281,10 +1272,8 @@
         <p class="hero-subtitle">Select a cinema format below to see how each aspect ratio transforms the Varanasi teaser in real time.</p>
     </section>
 
-    <!-- NEW STRUCTURAL SECTION: TWO COLUMN SHOWCASE FLUID PANEL -->
     <div class="main-showcase-grid animate-in delay-3">
         
-        <!-- LEFT PANEL: REGULAR CORE CONFIGURATOR -->
         <div class="player-card glass">
             <div id="playerContainer">
                 <div class="video-area">
@@ -1295,6 +1284,7 @@
                             id="mainVideo"
                             src="https://www.dropbox.com/scl/fi/15yp2m1xk8putf2an8343/varanasi.mp4?rlkey=kves9aonxo4n3spr5yop3ldjt&st=v9nqqi5t&raw=1"
                             poster="1.43.png"
+                            fetchpriority="high"
                             preload="auto"
                             loop muted playsinline
                             controls
@@ -1356,18 +1346,14 @@
             </div>
         </div>
 
-        <!-- RIGHT PANEL: HIGH IMMERSION YOUTUBE MEDIA TILE -->
         <div class="yt-tile-container">
             <div class="yt-media-box" id="ytMediaBox">
-                <!-- Clean Thumbnail State -->
-                <img id="ytThumb" src="thumbnail.jpg" class="yt-thumb-btn" alt="Starvel Phase 1 Presentation Deck" onclick="triggerInlinePlay()">
+                <img id="ytThumb" src="thumbnail.jpg" class="yt-thumb-btn" alt="Starvel Phase 1 Presentation Deck" fetchpriority="high" decoding="async" onclick="triggerInlinePlay()">
                 <div class="yt-play-icon" id="ytPlayIcon" onclick="triggerInlinePlay()" style="cursor: pointer;">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--gold)"><path d="M8 5v14l11-7z"/></svg>
                 </div>
-                <!-- Inline Streaming Node (Locks down automatic Dolby Vision color emulation filters) -->
                 <video id="ytInlineVideo" class="yt-video-el dolby-grade" src="https://www.dropbox.com/scl/fi/pv5saljoecekqa5gbstd8/Starvel-Phase-1.mp4?rlkey=e2mggconb74ij3brp2gz16syo&st=d6kxf87q&raw=1" controls playsinline></video>
             </div>
-            <!-- Title positioned exactly below video per requests -->
             <div class="yt-tile-title">Starvel Phase 1 Trailer</div>
         </div>
 
@@ -1432,14 +1418,12 @@
 <div class="toast" id="toast">✓ UPI ID Copied!</div>
 
 <script>
-// --- PERFORMANCE CONTEXT: Globally Cache Reusable Core Media Elements ---
 const mainVid = document.getElementById('mainVideo');
 const bgVid   = document.getElementById('bgVideo');
 const ytInlineVideo = document.getElementById('ytInlineVideo');
 const ytThumb = document.getElementById('ytThumb');
 const ytPlayIcon = document.getElementById('ytPlayIcon');
 
-// --- VFX Dropdown ---
 const vfxDropdown = document.getElementById('vfxDropdown');
 const vfxTriggerBtn = document.getElementById('vfxTriggerBtn');
 
@@ -1463,7 +1447,6 @@ document.addEventListener('keydown', e => {
     }
 });
 
-// --- VFX Player Modal Routing ---
 let vfxDolbyOn = false;
 
 function openVfx(src, title, poster, dolby) {
@@ -1526,21 +1509,16 @@ function toggleDolby() {
     applyVfxDolby(vfxDolbyOn);
 }
 
-// --- NEW INTELLIGENT ROUTINE: YOUTUBE CORE INSTANT INLINE PLAYER ---
 function triggerInlinePlay() {
-    // Intercept active configurations to cleanly focus pipeline resources
     if (mainVid) mainVid.pause();
     
-    // Smooth layout transposition swapping assets
     ytThumb.style.display = 'none';
     ytPlayIcon.style.display = 'none';
     ytInlineVideo.style.display = 'block';
     
-    // Native hardware processing call
-    ytInlineVideo.play().catch(err => console.warn("Inline layout deployment update:", err));
+    ytInlineVideo.play().catch(err => console.warn("Inline player loading error:", err));
 }
 
-// --- Format Switcher ---
 function changeFormat(ratio, btn, badgeSrc, dolby) {
     const container = document.getElementById('playerContainer');
     const overlay    = document.getElementById('formatOverlay');
@@ -1570,7 +1548,6 @@ function changeFormat(ratio, btn, badgeSrc, dolby) {
     if (mainVid.paused) mainVid.play().catch(() => {});
 }
 
-// --- Fullscreen ---
 const playerContainer = document.getElementById('playerContainer');
 const fsLabel = document.getElementById('fsLabel');
 const fsIcon  = document.getElementById('fsIcon');
@@ -1595,7 +1572,6 @@ function onFsChange() {
 document.addEventListener('fullscreenchange', onFsChange);
 document.addEventListener('webkitfullscreenchange', onFsChange);
 
-// --- Copy UPI ---
 function copyUpi() {
     const text = document.getElementById('upiId').textContent;
     navigator.clipboard.writeText(text).then(showToast).catch(() => {
@@ -1617,7 +1593,6 @@ function showToast() {
     setTimeout(() => toast.classList.remove('show'), 2200);
 }
 
-// --- View Counter ---
 function loadViews() {
     const ns = 's4thw1k07_varanasiimax';
     const k  = 'visits';
@@ -1636,7 +1611,6 @@ function loadViews() {
         });
 }
 
-// --- Playback Init ---
 function initPlayback() {
     loadViews();
 
