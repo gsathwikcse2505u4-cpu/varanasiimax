@@ -78,7 +78,7 @@
         .loader-wrapper {
             position: fixed; inset: 0; z-index: 99999; background: #030305;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity var(--dur-base) var(--ease-cinema), visibility var(--dur-base) var(--ease-cinema);
+            transition: opacity var(--dur-base) var(--ease-cinema);
         }
         .loader-logo { width: 100px; height: auto; opacity: 0; transform: translateY(20px); filter: drop-shadow(0 0 20px rgba(255,255,255,0.1)); transition: all var(--dur-base) var(--ease-out-expo); }
         .loader-bar-container { width: 200px; height: 1px; background: rgba(255,255,255,0.1); margin-top: 2rem; overflow: hidden; }
@@ -228,14 +228,12 @@
         
         /* Video Player Area */
         .video-player-container { padding: 1.25rem; display: flex; flex-direction: column; gap: 1.25rem; width: 100%; }
-        #playerContainer { --current-ratio: 2.39; display: flex; flex-direction: column; gap: 1.25rem; position: relative; z-index: 10; width: 100%; }
-        .video-area { width: 100%; display: flex; justify-content: center; align-items: center; }
+        #playerContainer { --current-ratio: 2.39; display: flex; flex-direction: column; gap: 1.25rem; position: relative; z-index: 10; }
         .video-wrapper {
             position: relative; width: 100%; background: #000;
             border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 60px rgba(0,0,0,0.8); overflow: hidden;
             aspect-ratio: var(--current-ratio);
             transition: aspect-ratio 0.6s var(--ease-out-expo), width 0.6s var(--ease-out-expo);
-            border-radius: 12px;
         }
         .main-video {
             width: 100%; height: 100%; object-fit: cover; display: block;
@@ -243,8 +241,10 @@
         }
         .dolby-grade { filter: contrast(1.15) saturate(1.2) brightness(1.05); }
 
+        .format-overlay { position: absolute; top: 16px; left: 16px; z-index: 10; width: 90px; height: auto; display: none; transition: opacity 0.4s ease; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8)); }
+
         /* Format Buttons */
-        .controls { display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap; width: 100%; }
+        .controls { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
         .format-btn {
             position: relative; width: 114px; height: 86px; border-radius: var(--radius-btn); border: 1px solid var(--lg-border);
             background: rgba(255,255,255,0.02); color: rgba(255,255,255,0.5); cursor: pointer;
@@ -271,12 +271,12 @@
         
         .ctrl-divider { width: 1px; height: 48px; background: rgba(255,255,255,0.1); flex-shrink: 0; margin: 0 4px; }
         .fullscreen-btn {
-            width: 86px; height: 86px; border-radius: var(--radius-btn); border: 1px solid var(--lg-border);
+            width: 76px; height: 86px; border-radius: var(--radius-btn); border: 1px solid var(--lg-border);
             background: rgba(255,255,255,0.02); color: rgba(255,255,255,0.5); cursor: pointer;
             display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
-            transition: all var(--dur-base) var(--ease-out-expo); margin-left: auto;
+            transition: all var(--dur-base) var(--ease-out-expo);
         }
-        .fullscreen-btn:hover { color: #fff; border-color: var(--lg-border-strong); transform: translateY(-4px) scale(1.04); box-shadow: 0 10px 25px rgba(255,255,255,0.05); }
+        .fullscreen-btn:hover { color: #fff; border-color: var(--lg-border-strong); transform: translateY(-4px) scale(1.04); }
         .fullscreen-btn svg { width: 20px; height: 20px; fill: currentColor; transition: transform var(--dur-base); }
         .fullscreen-btn:hover svg { transform: scale(1.15); }
         .fs-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -349,14 +349,9 @@
         }
         .action-card:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
         .action-card:hover::before { opacity: 1; }
-        
-        /* QR Asset Alignment Mapping */
-        .qr-img-asset { width: 90px; height: 90px; object-fit: contain; border-radius: 8px; transition: transform var(--dur-base) var(--ease-spring); }
-        .action-card:hover .qr-img-asset { transform: scale(1.08); filter: drop-shadow(0 0 12px rgba(232,201,110,0.25)); }
-        
-        .ig-svg-wrap { width: 44px; height: 44px; color: rgba(255,255,255,0.7); transition: transform var(--dur-base) var(--ease-spring); }
-        .action-card:hover .ig-svg-wrap { transform: scale(1.1) rotate(5deg); color: #fff; filter: drop-shadow(0 0 12px rgba(232,201,110,0.3)); }
-        
+        .qr-img { width: 100px; height: 100px; object-fit: contain; border-radius: 8px; }
+        .ig-icon { width: 50px; height: 50px; object-fit: contain; transition: transform var(--dur-base) var(--ease-spring); }
+        .action-card:hover .ig-icon { transform: scale(1.1) rotate(5deg); }
         .action-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); transition: color var(--dur-fast); }
         .action-card:hover .action-label { color: #fff; }
 
@@ -369,24 +364,24 @@
         }
         .view-counter span { color: var(--gold); font-weight: 700; }
 
-        /* VFX Modal Framework Optimization */
+        /* VFX Modal */
         .vfx-overlay {
             position: fixed; inset: 0; z-index: 9000; display: flex; align-items: center; justify-content: center;
-            padding: clamp(1rem, 3vw, 2.5rem); background: rgba(0,0,0,0.95); opacity: 0; visibility: hidden;
+            padding: clamp(1rem, 3vw, 2.5rem); background: rgba(0,0,0,0.9); opacity: 0; visibility: hidden;
             transition: opacity var(--dur-base) var(--ease-out-expo), visibility var(--dur-base) var(--ease-out-expo);
         }
-        .vfx-overlay.is-open { opacity: 1; visibility: visible; backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); }
+        .vfx-overlay.is-open { opacity: 1; visibility: visible; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
         .vfx-panel {
-            width: 100%; max-width: 1000px; display: flex; flex-direction: column; gap: 1.25rem;
-            transform: scale(0.96) translateY(25px); transition: transform var(--dur-epic) var(--ease-out-expo);
+            width: 100%; max-width: 1100px; display: flex; flex-direction: column; gap: 1.5rem;
+            transform: scale(0.95) translateY(20px); transition: transform var(--dur-epic) var(--ease-out-expo);
         }
         .vfx-overlay.is-open .vfx-panel { transform: scale(1) translateY(0); }
         
         .vfx-header {
             display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem;
-            border-radius: 20px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
         }
-        .vfx-title { font-size: 1.1rem; font-weight: 700; color: #fff; letter-spacing: -0.2px; }
+        .vfx-title { font-size: 1.2rem; font-weight: 700; color: #fff; letter-spacing: -0.2px; }
         .vfx-controls { display: flex; align-items: center; gap: 15px; }
         
         .dolby-toggle {
@@ -401,39 +396,17 @@
         .dolby-toggle.is-active .switch { background: rgba(232,201,110,0.2); border: 1px solid var(--gold); }
         .dolby-toggle.is-active .switch-knob { transform: translateX(20px); background: var(--gold); box-shadow: 0 0 10px var(--gold); }
         
-        .vfx-video-box { 
-            position: relative; width: 100%; aspect-ratio: 16/9; background: #000; 
-            border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); 
-            box-shadow: 0 40px 100px rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center;
-        }
+        .vfx-video-box { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 40px 100px rgba(0,0,0,0.9); }
         .vfx-video-badge { position: absolute; top: 20px; left: 20px; width: 90px; height: auto; z-index: 5; opacity: 0; display: none; transition: opacity 0.5s; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8)); }
-        .vfx-video-el { width: 100%; height: 100%; object-fit: contain; display: block; }
         
-        /* Advanced Dynamic Fullscreen Layout Adaptation Engine */
+        /* Fullscreen API Fixes */
         #playerContainer:fullscreen, #playerContainer:-webkit-full-screen {
-            max-width: none !important; width: 100vw !important; height: 100vh !important; 
-            background: #000 !important; padding: 2.5rem !important; display: flex !important; 
-            flex-direction: column !important; justify-content: space-between !important; align-items: center !important;
-        }
-        #playerContainer:fullscreen .video-area, #playerContainer:-webkit-full-screen .video-area { 
-            width: 100% !important; flex: 1 !important; display: flex !important; 
-            justify-content: center !important; align-items: center !important; 
+            max-width: none !important; width: 100vw !important; height: 100vh !important; background: #000 !important; padding: 30px !important; display: flex !important; flex-direction: column !important; justify-content: space-between !important; align-items: center !important;
         }
         #playerContainer:fullscreen .video-wrapper, #playerContainer:-webkit-full-screen .video-wrapper {
-            height: calc(100vh - 170px) !important; 
-            width: calc((100vh - 170px) * var(--current-ratio)) !important; 
-            max-width: 100vw !important; max-height: calc(100vh - 170px) !important; 
-            aspect-ratio: var(--current-ratio) / 1 !important; border-radius: 4px !important;
+            height: calc(100vh - 160px) !important; width: calc((100vh - 160px) * var(--current-ratio)) !important; max-width: 100vw !important; max-height: calc(100vh - 160px) !important; aspect-ratio: var(--current-ratio) / 1 !important; border-radius: 0px !important;
         }
-        #playerContainer:fullscreen .main-video, #playerContainer:-webkit-full-screen .main-video {
-            object-fit: contain !important;
-        }
-        #playerContainer:fullscreen .controls, #playerContainer:-webkit-full-screen .controls {
-            max-width: 1200px !important; margin: 0 auto !important; padding-top: 1rem !important;
-        }
-        #playerContainer:fullscreen .fullscreen-btn, #playerContainer:-webkit-full-screen .fullscreen-btn {
-            margin-left: 12px !important;
-        }
+        #playerContainer:fullscreen .video-area, #playerContainer:-webkit-full-screen .video-area { width: 100% !important; flex: 1 !important; display: flex !important; justify-content: center !important; align-items: center !important; }
         
         .toast {
             position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(20px);
@@ -444,11 +417,11 @@
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
         /* Breakpoints & Responsive Adaptations */
-        @media (max-width: 992px) { .main-showcase-grid { grid-template-columns: 1fr; gap: 2.5rem; } .fullscreen-btn { margin-left: 0; } }
+        @media (max-width: 992px) { .main-showcase-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
         @media (max-width: 768px) { .support-card { flex-direction: column; text-align: center; } .support-info { align-items: center; display: flex; flex-direction: column; } .support-actions { width: 100%; justify-content: center; } }
-        @media (max-width: 740px) { .controls { max-width: 480px; margin: 0 auto; } .ctrl-divider { display: none; } }
+        @media (max-width: 740px) { .controls { max-width: 380px; margin: 0 auto; } .ctrl-divider { display: none; } }
         
-        /* Mobile Display Carousel Menu Optimization */
+        /* MOBILE APP-STYLE SMOOTH SCROLLING CAROUSEL FOR Dropdown menu */
         @media (max-width: 600px) { 
             .dropdown-menu { 
                 right: auto; 
@@ -464,21 +437,33 @@
                 max-width: calc(100vw - 2rem);
                 padding: 1.25rem 1rem; 
                 -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
+                scrollbar-width: none; /* Hide scrollbar Firefox */
+                -ms-overflow-style: none;  /* Hide scrollbar IE/Edge */
             } 
-            .dropdown-menu::-webkit-scrollbar { display: none; }
-            .dropdown.is-active .dropdown-menu { transform: translateX(-50%) translateY(0) scale(1); } 
-            .dropdown-item { flex: 0 0 260px !important; scroll-snap-align: start; } 
+            .dropdown-menu::-webkit-scrollbar {
+                display: none; /* Hide scrollbar Chrome/Safari/Opera */
+            }
+            .dropdown.is-active .dropdown-menu { 
+                transform: translateX(-50%) translateY(0) scale(1); 
+            } 
+            .dropdown-item { 
+                flex: 0 0 260px !important; 
+                scroll-snap-align: start; 
+            } 
             .action-card { width: 120px; height: 140px; } 
         }
         
         @media (max-width: 420px) { 
-            .dropdown-menu { width: calc(100vw - 1.5rem); max-width: calc(100vw - 1.5rem); } 
-            .dropdown-item { flex: 0 0 230px !important; }
+            .dropdown-menu { 
+                width: calc(100vw - 1.5rem); 
+                max-width: calc(100vw - 1.5rem);
+            } 
+            .dropdown-item {
+                flex: 0 0 230px !important;
+            }
         }
 
-        /* Reduced Motion Guard */
+        /* ACCESSIBILITY: Prefers Reduced Motion */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
             .magnetic-target, .glass-btn, .format-btn, .yt-media-box, .action-card { transform: none !important; }
@@ -577,6 +562,7 @@
             <div id="playerContainer">
                 <div class="video-area">
                     <div class="video-wrapper" id="videoWrapper">
+                        <img id="formatOverlay" class="format-overlay" src="" alt="Active format badge" decoding="async">
                         <video
                             class="main-video"
                             id="mainVideo"
@@ -592,19 +578,19 @@
                 </div>
 
                 <div class="controls stagger-group-1" role="group" aria-label="Cinema format selector">
-                    <button class="format-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.43,this,false)" aria-label="IMAX 70MM 1.43:1">
+                    <button class="format-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.43,this,'imax-seeklogo.png',false)" aria-label="IMAX 70MM 1.43:1">
                         <img class="btn-icon btn-image-no-tint" src="imax-seeklogo.png" alt="IMAX" decoding="async">
                         <span class="btn-label">IMAX 70MM</span>
                         <span class="btn-ratio">1.43:1</span>
                     </button>
 
-                    <button class="format-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.90,this,false)" aria-label="IMAX Digital 1.90:1">
+                    <button class="format-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.90,this,'imax-seeklogo.png',false)" aria-label="IMAX Digital 1.90:1">
                         <img class="btn-icon btn-image-no-tint" src="imax-seeklogo.png" alt="IMAX Digital" decoding="async">
                         <span class="btn-label">IMAX Digital</span>
                         <span class="btn-ratio">1.90:1</span>
                     </button>
 
-                    <button class="format-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(2.20,this,false)" aria-label="70MM Film 2.20:1">
+                    <button class="format-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(2.20,this,null,false)" aria-label="70MM Film 2.20:1">
                         <svg class="btn-svg" width="58" height="22" viewBox="0 0 58 22" fill="none">
                             <rect x="2" y="2" width="54" height="18" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
                             <line x1="8"  y1="3" x2="8"  y2="19" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2.5 2.5"/>
@@ -614,7 +600,7 @@
                         <span class="btn-ratio">2.20:1</span>
                     </button>
 
-                    <button class="format-btn active magnetic-target fade-up load-stagger-btn" onclick="changeFormat(2.39,this,false)" aria-label="35MM Scope 2.39:1" aria-pressed="true">
+                    <button class="format-btn active magnetic-target fade-up load-stagger-btn" onclick="changeFormat(2.39,this,null,false)" aria-label="35MM Scope 2.39:1" aria-pressed="true">
                         <svg class="btn-svg" width="62" height="18" viewBox="0 0 62 18" fill="none">
                             <rect x="1" y="1" width="60" height="16" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
                             <line x1="7"  y1="2" x2="7"  y2="16" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2.5 2.5"/>
@@ -624,12 +610,12 @@
                         <span class="btn-ratio">2.39:1</span>
                     </button>
 
-                    <button class="format-btn premium-logo-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.85,this,true)" aria-label="Dolby Vision 1.85:1">
-                        <img class="btn-icon" src="dolby.png" alt="Dolby Vision" style="filter:invert(1);" decoding="async">
+                    <button class="format-btn premium-logo-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.85,this,'dolby.png',true)" aria-label="Dolby Vision 1.85:1">
+                        <img class="btn-icon" src="dolby.png" alt="Dolby Vision" style="filter:invert(1);;" decoding="async">
                         <span class="btn-ratio">1.85:1</span>
                     </button>
 
-                    <button class="format-btn premium-logo-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.85,this,false)" aria-label="Large Format 1.85:1">
+                    <button class="format-btn premium-logo-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.85,this,'18333e4e-ed31-4a2a-9e6e-3ac8ac796c69.png',false)" aria-label="Large Format 1.85:1">
                         <img class="btn-icon" src="18333e4e-ed31-4a2a-9e6e-3ac8ac796c69.png" alt="Large Format" style="filter:invert(1);" decoding="async">
                         <span class="btn-ratio">1.85:1</span>
                     </button>
@@ -653,7 +639,7 @@
                 </div>
                 <video id="ytInlineVideo" class="yt-video-el dolby-grade" src="https://www.dropbox.com/scl/fi/pv5saljoecekqa5gbstd8/Starvel-Phase-1.mp4?rlkey=e2mggconb74ij3brp2gz16syo&st=d6kxf87q&raw=1" controls playsinline></video>
             </div>
-            <div class="yt-play-icon" id="ytPlayIcon">Starvel Phase 1 Trailer</div>
+            <div class="yt-tile-title">Starvel Phase 1 Trailer</div>
             <p class="yt-tile-desc">
                 <strong>Starvel Studios</strong> is a cinematic franchise born from our childhood, spanning the years 2019 to 2026. The original founding crew includes Sathwik Gurram, Suhas, Darshan Inturi, Rithwik Gurram, Mohit Veerepalli, and Harshita Nelluri.
                 <br><br>
@@ -694,18 +680,11 @@
 
             <div class="support-actions">
                 <a href="https://www.instagram.com/_starvelstudios_/" target="_blank" rel="noopener" class="action-card magnetic-target" aria-label="Follow Starvel Studios on Instagram">
-                    <div class="ig-svg-wrap">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                        </svg>
-                    </div>
+                    <img class="ig-icon" src="image_800360.jpg" alt="Instagram" decoding="async" loading="lazy">
                     <span class="action-label">Follow Us</span>
                 </a>
                 <div class="action-card magnetic-target">
-                    <img class="qr-img-asset" src="image_0a2444.jpg" alt="Scan QR Code" decoding="async" loading="lazy">
-                    <span class="action-label">Scan QR</span>
+                    <img class="qr-img" src="image_fa8eb8.png" alt="QR" decoding="async" loading="lazy">
                 </div>
             </div>
         </div>
@@ -775,35 +754,25 @@
         });
     });
 
-    // 3. Pre-loader Cinematic Sequence (Optimized with instant Fallback Entry Engine)
+    // 3. Pre-loader Cinematic Sequence
     const loaderBar = document.getElementById('loaderBar');
     const loaderWrapper = document.getElementById('loader');
     const loaderLogo = document.getElementById('loaderLogo');
-    let dynamicLoaderTriggered = false;
     
-    function dismissLoaderInstantaneous() {
-        if (dynamicLoaderTriggered) return;
-        dynamicLoaderTriggered = true;
-        
+    window.addEventListener('load', () => {
         loaderBar.style.width = '100%'; 
         loaderLogo.style.opacity = '1'; 
         loaderLogo.style.transform = 'translateY(0)'; 
         
         setTimeout(() => {
             loaderWrapper.style.opacity = '0';
-            loaderWrapper.style.visibility = 'hidden';
             document.body.classList.add('bg-loaded');
             
             setTimeout(() => {
                 loaderWrapper.style.display = 'none';
                 playIntroTimeline();
             }, 500);
-        }, 300);
-    }
-
-    window.addEventListener('load', dismissLoaderInstantaneous);
-    document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(dismissLoaderInstantaneous, 600);
+        }, 400);
     });
 
     function playIntroTimeline() {
@@ -834,7 +803,7 @@
     document.querySelectorAll('.scroll-trigger').forEach(el => observer.observe(el));
 
     // =========================================================================
-    // MODALS, PLAYBACK ENGINE & INTERACTION LOGIC
+    // ORIGINAL APP LOGIC (FORMATS, MODALS, PLAYBACK)
     // =========================================================================
     
     const mainVid = document.getElementById('mainVideo');
@@ -922,10 +891,21 @@
     }
 
     // Format Switching Framework
-    function changeFormat(ratio, btn, dolby) {
+    function changeFormat(ratio, btn, badgeSrc, dolby) {
         const container = document.getElementById('playerContainer');
+        const overlay    = document.getElementById('formatOverlay');
+
+        // Layout shifts occur instantly and cleanly without masking blurs
         container.style.setProperty('--current-ratio', ratio);
         mainVid.classList.toggle('dolby-grade', dolby);
+
+        if (badgeSrc) {
+            overlay.src = badgeSrc; overlay.style.display = 'block';
+            overlay.style.filter = 'invert(1) drop-shadow(0 2px 6px rgba(0,0,0,0.8))';
+            overlay.style.width = badgeSrc.includes('18333') ? '120px' : '90px';
+        } else {
+            overlay.style.display = 'none';
+        }
 
         document.querySelectorAll('.format-btn').forEach(b => { b.classList.remove('active'); b.removeAttribute('aria-pressed'); });
         btn.classList.add('active'); btn.setAttribute('aria-pressed', 'true');
@@ -947,6 +927,7 @@
         }
     }
 
+    // Handle viewport layout configuration during state modification
     function onFsChange() {
         const inFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
         fsLabel.textContent = inFs ? 'EXIT' : 'FULLSCREEN';
