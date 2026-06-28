@@ -78,7 +78,7 @@
         .loader-wrapper {
             position: fixed; inset: 0; z-index: 99999; background: #030305;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity var(--dur-base) var(--ease-cinema);
+            transition: opacity var(--dur-base) var(--ease-cinema), visibility var(--dur-base) var(--ease-cinema);
         }
         .loader-logo { width: 100px; height: auto; opacity: 0; transform: translateY(20px); filter: drop-shadow(0 0 20px rgba(255,255,255,0.1)); transition: all var(--dur-base) var(--ease-out-expo); }
         .loader-bar-container { width: 200px; height: 1px; background: rgba(255,255,255,0.1); margin-top: 2rem; overflow: hidden; }
@@ -445,7 +445,7 @@
         @media (max-width: 768px) { .support-card { flex-direction: column; text-align: center; } .support-info { align-items: center; display: flex; flex-direction: column; } .support-actions { width: 100%; justify-content: center; } }
         @media (max-width: 740px) { .controls { max-width: 480px; margin: 0 auto; } .ctrl-divider { display: none; } }
         
-        /* Smooth Scrolling Carousel For Mobile Display Optimization */
+        /* Mobile Display Carousel Menu Optimization */
         @media (max-width: 600px) { 
             .dropdown-menu { 
                 right: auto; 
@@ -475,7 +475,7 @@
             .dropdown-item { flex: 0 0 230px !important; }
         }
 
-        /* Reduced Motion Accessibility Safe Guard */
+        /* Reduced Motion Guard */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
             .magnetic-target, .glass-btn, .format-btn, .yt-media-box, .action-card { transform: none !important; }
@@ -713,8 +713,6 @@
         </div>
     </section>
 
-    <nav style="display:none;"><a href="https://change.org" id="petitionLink"></a></nav>
-
     <footer class="footer scroll-trigger fade-up" style="transition-delay: 300ms;">
         <div class="footer-credit">Designed by <span>G. Sathwik</span></div>
         <div class="view-counter magnetic-target">Views: <span id="viewCount">—</span></div>
@@ -779,25 +777,36 @@
         });
     });
 
-    // 3. Pre-loader Cinematic Sequence
+    // 3. Pre-loader Cinematic Sequence (Optimized with instant Fallback Engine)
     const loaderBar = document.getElementById('loaderBar');
     const loaderWrapper = document.getElementById('loader');
     const loaderLogo = document.getElementById('loaderLogo');
+    let dynamicLoaderTriggered = false;
     
-    window.addEventListener('load', () => {
+    function dismissLoaderInstantaneous() {
+        if (dynamicLoaderTriggered) return;
+        dynamicLoaderTriggered = true;
+        
         loaderBar.style.width = '100%'; 
         loaderLogo.style.opacity = '1'; 
         loaderLogo.style.transform = 'translateY(0)'; 
         
         setTimeout(() => {
             loaderWrapper.style.opacity = '0';
+            loaderWrapper.style.visibility = 'hidden';
             document.body.classList.add('bg-loaded');
             
             setTimeout(() => {
                 loaderWrapper.style.display = 'none';
                 playIntroTimeline();
             }, 500);
-        }, 400);
+        }, 300);
+    }
+
+    // High performance listeners: Dismiss immediately when loading finishes or at maximum safety threshold
+    window.addEventListener('load', dismissLoaderInstantaneous);
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(dismissLoaderInstantaneous, 600); // Fail-safe fallback initialization frame
     });
 
     function playIntroTimeline() {
@@ -980,7 +989,7 @@
         fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://api.countapi.xyz/hit/${ns}/${k}`)}`)
             .then(r => r.ok ? r.json() : Promise.reject())
             .then(d => { if (JSON.parse(d.contents)?.value) el.textContent = JSON.parse(d.contents).value.toLocaleString(); })
-            .catch(() => { let v = parseInt(localStorage.getItem('lv') || '1,090'.replace(/,/g,'')) + 1; localStorage.setItem('lv', v); el.textContent = v.toLocaleString(); });
+            .catch(() => { let v = parseInt(localStorage.getItem('lv') || '1024') + 1; localStorage.setItem('lv', v); el.textContent = v.toLocaleString(); });
     }
 
     // Playback Engine Bootstrap
