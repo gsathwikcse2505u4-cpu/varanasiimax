@@ -243,8 +243,6 @@
         }
         .dolby-grade { filter: contrast(1.15) saturate(1.2) brightness(1.05); }
 
-        .format-overlay { position: absolute; top: 16px; left: 16px; z-index: 10; width: 90px; height: auto; display: none; transition: opacity 0.4s ease; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8)); }
-
         /* Format Buttons */
         .controls { display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap; width: 100%; }
         .format-btn {
@@ -352,8 +350,10 @@
         .action-card:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
         .action-card:hover::before { opacity: 1; }
         
-        .qr-svg-wrap { width: 64px; height: 64px; color: var(--gold); transition: transform var(--dur-base) var(--ease-spring); }
-        .action-card:hover .qr-svg-wrap { transform: scale(1.08); color: #fff; }
+        /* QR Asset Alignment Mapping */
+        .qr-img-asset { width: 90px; height: 90px; object-fit: contain; border-radius: 8px; transition: transform var(--dur-base) var(--ease-spring); }
+        .action-card:hover .qr-img-asset { transform: scale(1.08); filter: drop-shadow(0 0 12px rgba(232,201,110,0.25)); }
+        
         .ig-svg-wrap { width: 44px; height: 44px; color: rgba(255,255,255,0.7); transition: transform var(--dur-base) var(--ease-spring); }
         .action-card:hover .ig-svg-wrap { transform: scale(1.1) rotate(5deg); color: #fff; filter: drop-shadow(0 0 12px rgba(232,201,110,0.3)); }
         
@@ -424,6 +424,9 @@
             width: calc((100vh - 170px) * var(--current-ratio)) !important; 
             max-width: 100vw !important; max-height: calc(100vh - 170px) !important; 
             aspect-ratio: var(--current-ratio) / 1 !important; border-radius: 4px !important;
+        }
+        #playerContainer:fullscreen .main-video, #playerContainer:-webkit-full-screen .main-video {
+            object-fit: contain !important;
         }
         #playerContainer:fullscreen .controls, #playerContainer:-webkit-full-screen .controls {
             max-width: 1200px !important; margin: 0 auto !important; padding-top: 1rem !important;
@@ -574,7 +577,6 @@
             <div id="playerContainer">
                 <div class="video-area">
                     <div class="video-wrapper" id="videoWrapper">
-                        <img id="formatOverlay" class="format-overlay" src="" alt="Active format badge" decoding="async">
                         <video
                             class="main-video"
                             id="mainVideo"
@@ -590,19 +592,19 @@
                 </div>
 
                 <div class="controls stagger-group-1" role="group" aria-label="Cinema format selector">
-                    <button class="format-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.43,this,'imax-seeklogo.png',false)" aria-label="IMAX 70MM 1.43:1">
+                    <button class="format-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.43,this,false)" aria-label="IMAX 70MM 1.43:1">
                         <img class="btn-icon btn-image-no-tint" src="imax-seeklogo.png" alt="IMAX" decoding="async">
                         <span class="btn-label">IMAX 70MM</span>
                         <span class="btn-ratio">1.43:1</span>
                     </button>
 
-                    <button class="format-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.90,this,'imax-seeklogo.png',false)" aria-label="IMAX Digital 1.90:1">
+                    <button class="format-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.90,this,false)" aria-label="IMAX Digital 1.90:1">
                         <img class="btn-icon btn-image-no-tint" src="imax-seeklogo.png" alt="IMAX Digital" decoding="async">
                         <span class="btn-label">IMAX Digital</span>
                         <span class="btn-ratio">1.90:1</span>
                     </button>
 
-                    <button class="format-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(2.20,this,null,false)" aria-label="70MM Film 2.20:1">
+                    <button class="format-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(2.20,this,false)" aria-label="70MM Film 2.20:1">
                         <svg class="btn-svg" width="58" height="22" viewBox="0 0 58 22" fill="none">
                             <rect x="2" y="2" width="54" height="18" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
                             <line x1="8"  y1="3" x2="8"  y2="19" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2.5 2.5"/>
@@ -612,7 +614,7 @@
                         <span class="btn-ratio">2.20:1</span>
                     </button>
 
-                    <button class="format-btn active magnetic-target fade-up load-stagger-btn" onclick="changeFormat(2.39,this,null,false)" aria-label="35MM Scope 2.39:1" aria-pressed="true">
+                    <button class="format-btn active magnetic-target fade-up load-stagger-btn" onclick="changeFormat(2.39,this,false)" aria-label="35MM Scope 2.39:1" aria-pressed="true">
                         <svg class="btn-svg" width="62" height="18" viewBox="0 0 62 18" fill="none">
                             <rect x="1" y="1" width="60" height="16" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
                             <line x1="7"  y1="2" x2="7"  y2="16" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2.5 2.5"/>
@@ -622,12 +624,12 @@
                         <span class="btn-ratio">2.39:1</span>
                     </button>
 
-                    <button class="format-btn premium-logo-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.85,this,'dolby.png',true)" aria-label="Dolby Vision 1.85:1">
+                    <button class="format-btn premium-logo-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.85,this,true)" aria-label="Dolby Vision 1.85:1">
                         <img class="btn-icon" src="dolby.png" alt="Dolby Vision" style="filter:invert(1);" decoding="async">
                         <span class="btn-ratio">1.85:1</span>
                     </button>
 
-                    <button class="format-btn premium-logo-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.85,this,'18333e4e-ed31-4a2a-9e6e-3ac8ac796c69.png',false)" aria-label="Large Format 1.85:1">
+                    <button class="format-btn premium-logo-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.85,this,false)" aria-label="Large Format 1.85:1">
                         <img class="btn-icon" src="18333e4e-ed31-4a2a-9e6e-3ac8ac796c69.png" alt="Large Format" style="filter:invert(1);" decoding="async">
                         <span class="btn-ratio">1.85:1</span>
                     </button>
@@ -651,7 +653,7 @@
                 </div>
                 <video id="ytInlineVideo" class="yt-video-el dolby-grade" src="https://www.dropbox.com/scl/fi/pv5saljoecekqa5gbstd8/Starvel-Phase-1.mp4?rlkey=e2mggconb74ij3brp2gz16syo&st=d6kxf87q&raw=1" controls playsinline></video>
             </div>
-            <div class="yt-tile-title">Starvel Phase 1 Trailer</div>
+            <div class="yt-play-icon" id="ytPlayIcon">Starvel Phase 1 Trailer</div>
             <p class="yt-tile-desc">
                 <strong>Starvel Studios</strong> is a cinematic franchise born from our childhood, spanning the years 2019 to 2026. The original founding crew includes Sathwik Gurram, Suhas, Darshan Inturi, Rithwik Gurram, Mohit Veerepalli, and Harshita Nelluri.
                 <br><br>
@@ -702,11 +704,7 @@
                     <span class="action-label">Follow Us</span>
                 </a>
                 <div class="action-card magnetic-target">
-                    <div class="qr-svg-wrap">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM21 21h-6v-3h3v-3h3zM15 15h3v3h-3zM18 15h3v-3h-3z"></path>
-                        </svg>
-                    </div>
+                    <img class="qr-img-asset" src="image_0a2444.jpg" alt="Scan QR Code" decoding="async" loading="lazy">
                     <span class="action-label">Scan QR</span>
                 </div>
             </div>
@@ -777,7 +775,7 @@
         });
     });
 
-    // 3. Pre-loader Cinematic Sequence (Optimized with instant Fallback Engine)
+    // 3. Pre-loader Cinematic Sequence (Optimized with instant Fallback Entry Engine)
     const loaderBar = document.getElementById('loaderBar');
     const loaderWrapper = document.getElementById('loader');
     const loaderLogo = document.getElementById('loaderLogo');
@@ -803,10 +801,9 @@
         }, 300);
     }
 
-    // High performance listeners: Dismiss immediately when loading finishes or at maximum safety threshold
     window.addEventListener('load', dismissLoaderInstantaneous);
     document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(dismissLoaderInstantaneous, 600); // Fail-safe fallback initialization frame
+        setTimeout(dismissLoaderInstantaneous, 600);
     });
 
     function playIntroTimeline() {
@@ -925,20 +922,10 @@
     }
 
     // Format Switching Framework
-    function changeFormat(ratio, btn, badgeSrc, dolby) {
+    function changeFormat(ratio, btn, dolby) {
         const container = document.getElementById('playerContainer');
-        const overlay    = document.getElementById('formatOverlay');
-
         container.style.setProperty('--current-ratio', ratio);
         mainVid.classList.toggle('dolby-grade', dolby);
-
-        if (badgeSrc) {
-            overlay.src = badgeSrc; overlay.style.display = 'block';
-            overlay.style.filter = 'invert(1) drop-shadow(0 2px 6px rgba(0,0,0,0.8))';
-            overlay.style.width = badgeSrc.includes('18333') ? '120px' : '90px';
-        } else {
-            overlay.style.display = 'none';
-        }
 
         document.querySelectorAll('.format-btn').forEach(b => { b.classList.remove('active'); b.removeAttribute('aria-pressed'); });
         btn.classList.add('active'); btn.setAttribute('aria-pressed', 'true');
