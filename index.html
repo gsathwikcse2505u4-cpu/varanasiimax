@@ -11,20 +11,17 @@
 
     <link rel="icon" type="image/png" href="favicon.png">
 
-    <!-- PERFORMANCE OPTIMIZATION -->
     <link rel="preconnect" href="https://www.dropbox.com" crossorigin>
     <link rel="dns-prefetch" href="https://www.dropbox.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Preloading High-Priority Assets -->
     <link rel="preload" href="thumbnail.jpg" as="image">
     <link rel="preload" href="1.43.png" as="image">
     <link rel="preload" href="loop.mp4" as="video">
     <link rel="preload" href="favicon.png" as="image">
 
-    <!-- Lenis for Buttery Smooth Scroll -->
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
 
     <style>
@@ -198,6 +195,7 @@
 
         .dropdown { position: relative; }
         .dropdown-trigger { padding: 0.6rem 1.4rem; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
+        
         .dropdown-menu {
             position: absolute; top: calc(100% + 10px); right: 0; width: 500px; max-width: calc(100vw - 2rem);
             padding: 1rem; border-radius: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
@@ -232,15 +230,15 @@
         .video-player-container { padding: 1.25rem; display: flex; flex-direction: column; gap: 1.25rem; width: 100%; }
         #playerContainer { --current-ratio: 2.39; display: flex; flex-direction: column; gap: 1.25rem; position: relative; z-index: 10; }
         .video-wrapper {
-            position: relative; width: 100%; aspect-ratio: var(--current-ratio) / 1; background: #000;
+            position: relative; width: 100%; background: #000;
             border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 60px rgba(0,0,0,0.8); overflow: hidden;
-            transition: aspect-ratio var(--dur-epic) var(--ease-out-expo), transform var(--dur-base) var(--ease-out-expo);
+            aspect-ratio: var(--current-ratio);
+            transition: aspect-ratio 0.6s var(--ease-out-expo), width 0.6s var(--ease-out-expo);
         }
         .main-video {
             width: 100%; height: 100%; object-fit: cover; display: block;
-            will-change: filter, transform; transition: filter var(--dur-slow) var(--ease-out-expo), opacity var(--dur-base);
+            will-change: transform; transition: opacity var(--dur-base);
         }
-        .main-video.ratio-blur { filter: blur(12px) brightness(1.2); opacity: 0.8; transform: scale(1.02); }
         .dolby-grade { filter: contrast(1.15) saturate(1.2) brightness(1.05); }
 
         .format-overlay { position: absolute; top: 16px; left: 16px; z-index: 10; width: 90px; height: auto; display: none; transition: opacity 0.4s ease; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8)); }
@@ -418,12 +416,52 @@
         }
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-        /* Breakpoints */
+        /* Breakpoints & Responsive Adaptations */
         @media (max-width: 992px) { .main-showcase-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
         @media (max-width: 768px) { .support-card { flex-direction: column; text-align: center; } .support-info { align-items: center; display: flex; flex-direction: column; } .support-actions { width: 100%; justify-content: center; } }
         @media (max-width: 740px) { .controls { max-width: 380px; margin: 0 auto; } .ctrl-divider { display: none; } }
-        @media (max-width: 600px) { .dropdown-menu { right: auto; left: 50%; transform: translateX(-50%) translateY(-15px) scale(0.95); grid-template-columns: 1fr 1fr; } .dropdown.is-active .dropdown-menu { transform: translateX(-50%) translateY(0) scale(1); } .action-card { width: 120px; height: 140px; } }
-        @media (max-width: 420px) { .dropdown-menu { grid-template-columns: 1fr; width: calc(100vw - 2rem); } }
+        
+        /* MOBILE APP-STYLE SMOOTH SCROLLING CAROUSEL FOR Dropdown menu */
+        @media (max-width: 600px) { 
+            .dropdown-menu { 
+                right: auto; 
+                left: 50%; 
+                transform: translateX(-50%) translateY(-15px) scale(0.95); 
+                grid-template-columns: none; 
+                display: flex !important; 
+                flex-direction: row !important; 
+                overflow-x: auto !important; 
+                scroll-snap-type: x mandatory; 
+                gap: 14px; 
+                width: calc(100vw - 2rem); 
+                max-width: calc(100vw - 2rem);
+                padding: 1.25rem 1rem; 
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none; /* Hide scrollbar Firefox */
+                -ms-overflow-style: none;  /* Hide scrollbar IE/Edge */
+            } 
+            .dropdown-menu::-webkit-scrollbar {
+                display: none; /* Hide scrollbar Chrome/Safari/Opera */
+            }
+            .dropdown.is-active .dropdown-menu { 
+                transform: translateX(-50%) translateY(0) scale(1); 
+            } 
+            .dropdown-item { 
+                flex: 0 0 260px !important; 
+                scroll-snap-align: start; 
+            } 
+            .action-card { width: 120px; height: 140px; } 
+        }
+        
+        @media (max-width: 420px) { 
+            .dropdown-menu { 
+                width: calc(100vw - 1.5rem); 
+                max-width: calc(100vw - 1.5rem);
+            } 
+            .dropdown-item {
+                flex: 0 0 230px !important;
+            }
+        }
 
         /* ACCESSIBILITY: Prefers Reduced Motion */
         @media (prefers-reduced-motion: reduce) {
@@ -436,7 +474,6 @@
 </head>
 <body>
 
-<!-- PRE-LOADER CINEMATIC SEQUENCE -->
 <div class="loader-wrapper" id="loader">
     <img src="favicon.png" alt="Starvel" class="loader-logo" id="loaderLogo">
     <div class="loader-bar-container"><div class="loader-bar" id="loaderBar"></div></div>
@@ -492,7 +529,6 @@
         </div>
     </nav>
 
-    <!-- Modal Players -->
     <div id="vfxOverlay" class="vfx-overlay" role="dialog" aria-modal="true" aria-label="VFX player">
         <div class="vfx-panel">
             <div class="vfx-header">
@@ -512,7 +548,6 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="reveal-mask load-seq-1">
             <img class="hero-title-img magnetic-target" src="title.png" alt="Varanasi — IMAX Format Explorer" decoding="async">
@@ -520,10 +555,8 @@
         <p class="hero-subtitle fade-up load-seq-2">Select a cinema format below to see how each aspect ratio transforms the Varanasi teaser in real time.</p>
     </section>
 
-    <!-- Main Grid Array -->
     <div class="main-showcase-grid">
         
-        <!-- Left Pane: The Configurator -->
         <div class="glass-card scale-in load-seq-3 player-card">
             <div class="glare"></div>
             <div id="playerContainer">
@@ -578,7 +611,12 @@
                     </button>
 
                     <button class="format-btn premium-logo-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.85,this,'dolby.png',true)" aria-label="Dolby Vision 1.85:1">
-                        <img class="btn-icon" src="dolby.png" alt="Dolby Vision" style="filter:invert(1);" decoding="async">
+                        <img class="btn-icon" src="dolby.png" alt="Dolby Vision" style="filter:invert(1);;" decoding="async">
+                        <span class="btn-ratio">1.85:1</span>
+                    </button>
+
+                    <button class="format-btn premium-logo-btn magnetic-target fade-up load-stagger-btn" onclick="changeFormat(1.85,this,'18333e4e-ed31-4a2a-9e6e-3ac8ac796c69.png',false)" aria-label="Large Format 1.85:1">
+                        <img class="btn-icon" src="18333e4e-ed31-4a2a-9e6e-3ac8ac796c69.png" alt="Large Format" style="filter:invert(1);" decoding="async">
                         <span class="btn-ratio">1.85:1</span>
                     </button>
 
@@ -592,7 +630,6 @@
             </div>
         </div>
 
-        <!-- Right Pane: Starvel Phase 1 Trailer -->
         <div class="glass-card yt-tile-container slide-right load-seq-4">
             <div class="glare"></div>
             <div class="yt-media-box magnetic-target" id="ytMediaBox" onclick="triggerInlinePlay()">
@@ -612,7 +649,6 @@
 
     </div>
 
-    <!-- Info Section (Intersection Observer Target) -->
     <section class="info-section scroll-trigger fade-up">
         <div class="info-card glass-card">
             <div class="glare"></div>
@@ -625,7 +661,6 @@
         </div>
     </section>
 
-    <!-- Support Section -->
     <section class="support-section scroll-trigger fade-up" style="transition-delay: 150ms;">
         <div class="support-card glass-card">
             <div class="glare"></div>
@@ -725,7 +760,6 @@
     const loaderLogo = document.getElementById('loaderLogo');
     
     window.addEventListener('load', () => {
-        // Start load animations much faster
         loaderBar.style.width = '100%'; 
         loaderLogo.style.opacity = '1'; 
         loaderLogo.style.transform = 'translateY(0)'; 
@@ -734,22 +768,20 @@
             loaderWrapper.style.opacity = '0';
             document.body.classList.add('bg-loaded');
             
-            // Fire Timeline sequence after crossfade
             setTimeout(() => {
                 loaderWrapper.style.display = 'none';
                 playIntroTimeline();
-            }, 500); // Drastically reduced wait time
-        }, 400); // Start fade out almost immediately after bar hits 100%
+            }, 500);
+        }, 400);
     });
 
     function playIntroTimeline() {
-        document.querySelector('.load-seq-1').classList.add('is-visible'); // Mask
+        document.querySelector('.load-seq-1').classList.add('is-visible');
         
-        setTimeout(() => document.querySelector('.load-seq-2').classList.add('is-visible'), 200); // Sub
-        setTimeout(() => document.querySelector('.load-seq-3').classList.add('is-visible'), 400); // Player
-        setTimeout(() => document.querySelector('.load-seq-4').classList.add('is-visible'), 600); // YT Tile
+        setTimeout(() => document.querySelector('.load-seq-2').classList.add('is-visible'), 200);
+        setTimeout(() => document.querySelector('.load-seq-3').classList.add('is-visible'), 400);
+        setTimeout(() => document.querySelector('.load-seq-4').classList.add('is-visible'), 600);
         
-        // Stagger Buttons Array
         setTimeout(() => {
             const btns = document.querySelectorAll('.load-stagger-btn');
             btns.forEach((btn, i) => {
@@ -782,7 +814,7 @@
     const vfxDropdown = document.getElementById('vfxDropdown');
     const vfxTriggerBtn = document.getElementById('vfxTriggerBtn');
 
-    // VFX Dropdown
+    // VFX Dropdown Toggle
     vfxTriggerBtn.addEventListener('click', e => {
         e.stopPropagation();
         const open = vfxDropdown.classList.toggle('is-active');
@@ -858,14 +890,12 @@
         ytInlineVideo.play().catch(err => console.warn("Inline player loading error:", err));
     }
 
-    // Format Logic
+    // Format Switching Framework
     function changeFormat(ratio, btn, badgeSrc, dolby) {
         const container = document.getElementById('playerContainer');
         const overlay    = document.getElementById('formatOverlay');
 
-        mainVid.classList.add('ratio-blur');
-        setTimeout(() => mainVid.classList.remove('ratio-blur'), 500); // Wait for epic blur
-
+        // Layout shifts occur instantly and cleanly without masking blurs
         container.style.setProperty('--current-ratio', ratio);
         mainVid.classList.toggle('dolby-grade', dolby);
 
@@ -882,7 +912,7 @@
         if (mainVid.paused) mainVid.play().catch(() => {});
     }
 
-    // Fullscreen API
+    // Fullscreen Navigation Ecosystem
     const playerContainer = document.getElementById('playerContainer');
     const fsLabel = document.getElementById('fsLabel');
     const fsIcon  = document.getElementById('fsIcon');
@@ -897,6 +927,7 @@
         }
     }
 
+    // Handle viewport layout configuration during state modification
     function onFsChange() {
         const inFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
         fsLabel.textContent = inFs ? 'EXIT' : 'FULLSCREEN';
@@ -905,7 +936,7 @@
     document.addEventListener('fullscreenchange', onFsChange);
     document.addEventListener('webkitfullscreenchange', onFsChange);
 
-    // UPI & Copy
+    // UPI Ledger Mechanics
     function copyUpi() {
         const text = document.getElementById('upiId').textContent;
         navigator.clipboard.writeText(text).then(showToast).catch(() => {
@@ -920,7 +951,7 @@
         setTimeout(() => toast.classList.remove('show'), 2200);
     }
 
-    // Hit Counter
+    // Analytics Initialization 
     function loadViews() {
         const ns = 's4thw1k07_varanasiimax'; const k  = 'visits'; const el = document.getElementById('viewCount');
         fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://api.countapi.xyz/hit/${ns}/${k}`)}`)
@@ -929,7 +960,7 @@
             .catch(() => { let v = parseInt(localStorage.getItem('lv') || '1024') + 1; localStorage.setItem('lv', v); el.textContent = v.toLocaleString(); });
     }
 
-    // Playback Initialization
+    // Playback Engine Bootstrap
     function initPlayback() {
         loadViews();
         const tryPlay = () => {
