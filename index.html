@@ -19,7 +19,7 @@
 
     <link rel="preload" href="thumbnail.jpg" as="image">
     <link rel="preload" href="1.43.png" as="image">
-    <link rel="preload" href="loop.mp4" as="video">
+    <link rel="preload" href="world.jpg" as="image">
     <link rel="preload" href="favicon.png" as="image">
 
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
@@ -92,15 +92,36 @@
         }
 
         /* ============================================================
-            CINEMATIC BACKGROUND OVERLAYS
+            CINEMATIC BACKGROUND OVERLAYS & MOTION EFFECTS
            ============================================================ */
-        #bgVideo {
-            position: fixed; inset: -5%; width: 110%; height: 110%;
-            object-fit: cover; z-index: 0; opacity: 0; transform: scale(1.1) translateZ(0);
-            pointer-events: none; will-change: transform, opacity;
-            transition: opacity 3s var(--ease-out-circ), transform 10s ease-out;
+        .bg-image-wrapper {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
         }
-        .bg-loaded #bgVideo { opacity: 0.35; transform: scale(1) translateZ(0); }
+        #bgImage {
+            position: absolute;
+            top: -10%; left: -10%;
+            width: 120%; height: 120%;
+            object-fit: cover;
+            opacity: 0;
+            will-change: transform, opacity;
+            transition: opacity 2.5s var(--ease-out-circ);
+        }
+        .bg-loaded #bgImage { 
+            opacity: 0.38; 
+            animation: cinematicPan 36s infinite alternate ease-in-out;
+        }
+
+        @keyframes cinematicPan {
+            0% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.08) translate(-2%, 1%); }
+            100% { transform: scale(1.03) translate(1%, -2%); }
+        }
 
         .cinematic-overlay {
             position: fixed; inset: 0; z-index: 1; pointer-events: none;
@@ -243,7 +264,7 @@
         }
         .dolby-grade { filter: contrast(1.15) saturate(1.2) brightness(1.05); }
 
-        /* Format Buttons Selector Layout Layout Styling (Centered Symmetry) */
+        /* Format Buttons Selector Layout Styling */
         .controls { display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap; width: 100%; }
         .format-btn {
             position: relative; width: 114px; height: 86px; border-radius: var(--radius-btn); border: 1px solid var(--lg-border);
@@ -268,6 +289,14 @@
         .btn-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         .btn-ratio { font-size: 0.65rem; opacity: 0.6; }
         .btn-image-no-tint { filter: none !important; mix-blend-mode: normal !important; }
+
+        /* Premium Brand Buttons Image Normalization Engine */
+        .premium-logo-btn .btn-icon {
+            width: 78px;
+            height: 22px;
+            max-height: 22px;
+            object-fit: contain;
+        }
 
         /* YouTube-Style Tile (Right Side) */
         .yt-tile-container {
@@ -347,15 +376,6 @@
         
         .action-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); transition: color var(--dur-fast); }
         .action-card:hover .action-label { color: #fff; }
-
-        .footer { padding: 2rem var(--page-px) 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-        .footer-credit { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2.5px; color: rgba(255,255,255,0.3); }
-        .footer-credit span { color: #fff; font-weight: 600; }
-        .view-counter {
-            display: inline-flex; align-items: center; gap: 8px; padding: 0.4rem 1.2rem; border-radius: var(--radius-pill);
-            border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); font-size: 0.8rem; color: rgba(255,255,255,0.5); letter-spacing: 1px;
-        }
-        .view-counter span { color: var(--gold); font-weight: 700; }
 
         /* VFX Pop-up Windows Engine Styles Optimization */
         .vfx-overlay {
@@ -445,7 +465,7 @@
             *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
             .magnetic-target, .glass-btn, .format-btn, .yt-media-box, .action-card { transform: none !important; }
             .glass-card { transform: none !important; }
-            #bgVideo { transform: scale(1) !important; }
+            #bgImage { transform: none !important; animation: none !important; }
         }
     </style>
 </head>
@@ -460,7 +480,9 @@
 
 <div class="cinematic-overlay"></div>
 
-<video id="bgVideo" src="loop.mp4" poster="1.43.png" preload="auto" loop muted playsinline></video>
+<div class="bg-image-wrapper">
+    <img id="bgImage" src="world.jpg" alt="Cinematic World Map Background">
+</div>
 
 <div class="page-wrapper" id="mainContent">
 
@@ -793,7 +815,6 @@
     // =========================================================================
     
     const mainVid = document.getElementById('mainVideo');
-    const bgVid   = document.getElementById('bgVideo');
     const ytInlineVideo = document.getElementById('ytInlineVideo');
     const ytThumb = document.getElementById('ytThumb');
     const ytPlayIcon = document.getElementById('ytPlayIcon');
@@ -916,7 +937,6 @@
         loadViews();
         const tryPlay = () => {
             if (mainVid) mainVid.play().catch(() => {});
-            if (bgVid) { bgVid.src = 'loop.mp4'; bgVid.load(); bgVid.play().catch(() => {}); }
         };
         if ('requestIdleCallback' in window) requestIdleCallback(tryPlay, { timeout: 1200 }); else setTimeout(tryPlay, 800);
         
