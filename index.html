@@ -35,16 +35,18 @@
             --lg-border-strong: rgba(255,255,255,0.25);
             --lg-specular:      linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.05) 25%, transparent 60%);
             
-            --gold:             #e8c96e;
+            --gold:              #e8c96e;
             --gold-glow:        rgba(232,201,110,0.25);
             --font:             'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             
+            /* Ultra-Premium Easing Curves */
             --ease-out-expo:    cubic-bezier(0.16, 1, 0.3, 1);
             --ease-out-quart:   cubic-bezier(0.25, 1, 0.5, 1);
             --ease-out-circ:    cubic-bezier(0.075, 0.82, 0.165, 1);
             --ease-cinema:      cubic-bezier(0.8, 0, 0.2, 1);
             --ease-spring:      cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
+            /* Timings */
             --dur-micro: 200ms;
             --dur-fast:  300ms;
             --dur-base:  500ms;
@@ -93,11 +95,22 @@
             CINEMATIC BACKGROUND OVERLAYS & MOTION EFFECTS
            ============================================================ */
         .bg-image-wrapper {
-            position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; overflow: hidden; pointer-events: none;
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
         }
         #bgImage {
-            position: absolute; top: -10%; left: -10%; width: 120%; height: 120%; object-fit: cover; opacity: 0;
-            will-change: transform, opacity; transition: opacity 2.5s var(--ease-out-circ);
+            position: absolute;
+            top: -10%; left: -10%;
+            width: 120%; height: 120%;
+            object-fit: cover;
+            opacity: 0;
+            will-change: transform, opacity;
+            transition: opacity 2.5s var(--ease-out-circ);
         }
         .bg-loaded #bgImage { 
             opacity: 0.38; 
@@ -128,34 +141,34 @@
 
         .fade-up {
             transform: translateY(40px); opacity: 0; filter: blur(10px);
-            will-change: transform, opacity, filter; transition: all var(--dur-epic) var(--ease-out-expo);
+            will-change: transform, opacity, filter;
+            transition: all var(--dur-epic) var(--ease-out-expo);
         }
         .fade-up.is-visible { transform: translateY(0); opacity: 1; filter: blur(0); }
 
         .scale-in {
             transform: scale(0.94); opacity: 0; filter: blur(20px);
-            will-change: transform, opacity, filter; transition: all var(--dur-epic) var(--ease-out-expo);
+            will-change: transform, opacity, filter;
+            transition: all var(--dur-epic) var(--ease-out-expo);
         }
         .scale-in.is-visible { transform: scale(1); opacity: 1; filter: blur(0); }
 
         .slide-right {
             transform: translateX(60px); opacity: 0; filter: blur(10px);
-            will-change: transform, opacity; transition: all var(--dur-epic) var(--ease-out-expo);
+            will-change: transform, opacity;
+            transition: all var(--dur-epic) var(--ease-out-expo);
         }
         .slide-right.is-visible { transform: translateX(0); opacity: 1; filter: blur(0); }
-
-        .view-section { display: none; width: 100%; }
-        .view-section.active-view { display: block; }
 
         /* ============================================================
             UI COMPONENTS
            ============================================================ */
-        .page-wrapper { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; padding-bottom: 5rem; width: 100%; }
+        .page-wrapper { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; padding-bottom: 5rem; }
 
         /* Navbar */
         .navbar {
             width: 100%; padding: 1.5rem var(--page-px); display: flex; align-items: center; justify-content: space-between;
-            position: fixed; top: 0; left: 0; z-index: 200; border-radius: 0 0 20px 20px;
+            position: fixed; top: 0; z-index: 200; border-radius: 0 0 20px 20px;
             transition: all var(--dur-slow) var(--ease-out-expo);
         }
         .navbar.scrolled {
@@ -167,8 +180,6 @@
         .magnetic-wrap { display: inline-block; cursor: pointer; }
         .magnetic-wrap:hover .nav-logo { transform: scale(1.05); }
 
-        .nav-buttons-group { display: flex; align-items: center; gap: 12px; }
-
         /* 3D Glass Cards */
         .glass-card {
             background: var(--lg-bg); backdrop-filter: blur(30px) saturate(1.5); -webkit-backdrop-filter: blur(30px) saturate(1.5);
@@ -176,7 +187,9 @@
             position: relative; overflow: hidden; transform-style: preserve-3d; will-change: transform;
             transition: box-shadow var(--dur-base) var(--ease-out-expo);
         }
-        .glass-card::before { content: ''; position: absolute; inset: 0; background: var(--lg-specular); pointer-events: none; z-index: 0; }
+        .glass-card::before {
+            content: ''; position: absolute; inset: 0; background: var(--lg-specular); pointer-events: none; z-index: 0;
+        }
         .glass-card:hover { box-shadow: 0 30px 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.1) inset; }
         
         .glare {
@@ -190,8 +203,7 @@
         .glass-btn {
             position: relative; border-radius: var(--radius-pill); border: 1px solid var(--lg-border);
             background: rgba(255,255,255,0.03); color: var(--gold); font-weight: 600; font-family: var(--font);
-            overflow: hidden; transition: all var(--dur-base) var(--ease-out-expo); cursor: pointer; text-decoration: none;
-            padding: 0.6rem 1.4rem; font-size: 0.85rem;
+            overflow: hidden; transition: all var(--dur-base) var(--ease-out-expo); cursor: pointer;
         }
         .glass-btn::after {
             content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
@@ -202,104 +214,276 @@
         .glass-btn:hover::after { left: 200%; transition: left 0.8s var(--ease-out-quart); }
         .glass-btn:active { transform: scale(0.96); }
 
-        /* Dropdowns */
         .dropdown { position: relative; }
+        .dropdown-trigger { padding: 0.6rem 1.4rem; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
+        
         .dropdown-menu {
-            position: absolute; top: calc(100% + 10px); right: 0; width: 280px;
-            padding: 0.75rem; border-radius: 16px; display: flex; flex-direction: column; gap: 8px;
-            background: rgba(8,8,12,0.9); backdrop-filter: blur(50px) saturate(1.8);
+            position: absolute; top: calc(100% + 10px); right: 0; width: 500px; max-width: calc(100vw - 2rem);
+            padding: 1rem; border-radius: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+            background: rgba(8,8,12,0.85); backdrop-filter: blur(50px) saturate(1.8);
             border: 1px solid rgba(255,255,255,0.1); opacity: 0; visibility: hidden;
             transform: translateY(-15px) scale(0.95); transition: all var(--dur-base) var(--ease-out-expo); pointer-events: none;
         }
         .dropdown.is-active .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0) scale(1); pointer-events: auto; }
         
         .dropdown-item {
-            border-radius: 10px; overflow: hidden; cursor: pointer; text-decoration: none; border: 1px solid transparent;
+            border-radius: 14px; overflow: hidden; cursor: pointer; text-decoration: none; border: 1px solid transparent;
             background: rgba(255,255,255,0.02); transition: all var(--dur-fast) var(--ease-out-expo); display: flex; flex-direction: column;
         }
-        .dropdown-item:hover { border-color: var(--gold); background: rgba(232,201,110,0.05); transform: translateY(-2px); }
+        .dropdown-item:hover { border-color: var(--gold); background: rgba(232,201,110,0.05); transform: translateY(-3px); box-shadow: 0 8px 24px var(--gold-glow); }
         .di-thumb { width: 100%; aspect-ratio: 16/9; overflow: hidden; background: #000; }
-        .di-thumb img { width: 100%; height: 100%; object-fit: cover; }
-        .di-meta { padding: 0.5rem; display: flex; flex-direction: column; gap: 2px; }
-        .di-title { color: #fff; font-size: 0.8rem; font-weight: 700; }
+        .di-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-slow) var(--ease-out-expo); }
+        .dropdown-item:hover .di-thumb img { transform: scale(1.08); }
+        .di-meta { padding: 0.75rem; display: flex; flex-direction: column; gap: 3px; }
+        .di-title { color: #fff; font-size: 0.88rem; font-weight: 700; transition: color var(--dur-fast); }
         .dropdown-item:hover .di-title { color: var(--gold); }
-        .di-desc { color: rgba(255,255,255,0.5); font-size: 0.7rem; }
+        .di-desc { color: rgba(255,255,255,0.5); font-size: 0.74rem; line-height: 1.35; }
 
-        /* Hero Layout */
-        .hero { width: 100%; display: flex; flex-direction: column; align-items: center; padding: 10rem var(--page-px) 3rem; text-align: center; }
+        /* Hero */
+        .hero { width: 100%; display: flex; flex-direction: column; align-items: center; padding: 10rem var(--page-px) 2rem; text-align: center; }
         .hero-title-img { max-width: min(450px, 90vw); width: 100%; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.9)); }
         .hero-subtitle { margin-top: 1.5rem; font-size: clamp(0.9rem, 2vw, 1.1rem); color: rgba(255,255,255,0.6); max-width: 600px; line-height: 1.6; }
 
-        /* Main Showcase Matrix */
+        /* Main Grid */
         .main-showcase-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 2rem; width: 100%; max-width: 1340px; padding: 0 var(--page-px); margin-bottom: 4rem; align-items: start; }
         
-        /* Video Container Architecture */
+        /* Video Player Area */
         .video-player-container { padding: 1.25rem; display: flex; flex-direction: column; gap: 1.25rem; width: 100%; }
-        #playerContainer { --current-ratio: 2.39; display: flex; flex-direction: column; gap: 1.25rem; width: 100%; }
+        #playerContainer { --current-ratio: 2.39; display: flex; flex-direction: column; gap: 1.25rem; position: relative; z-index: 10; width: 100%; }
         .video-area { width: 100%; display: flex; justify-content: center; align-items: center; }
         .video-wrapper {
-            position: relative; width: 100%; background: #000; border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8); overflow: hidden; aspect-ratio: var(--current-ratio);
-            transition: aspect-ratio 0.6s var(--ease-out-expo); border-radius: 12px;
+            position: relative; width: 100%; background: #000;
+            border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 60px rgba(0,0,0,0.8); overflow: hidden;
+            aspect-ratio: var(--current-ratio);
+            transition: aspect-ratio 0.6s var(--ease-out-expo), width 0.6s var(--ease-out-expo);
+            border-radius: 12px;
         }
-        .main-video { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .main-video {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+            will-change: transform; transition: opacity var(--dur-base);
+        }
+        .dolby-grade { filter: contrast(1.15) saturate(1.2) brightness(1.05); }
 
-        /* Format Interface Controls */
+        /* Format Buttons Selector Layout Styling */
         .controls { display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap; width: 100%; }
         .format-btn {
-            position: relative; width: 114px; height: 74px; border-radius: var(--radius-btn); border: 1px solid var(--lg-border);
+            position: relative; width: 114px; height: 86px; border-radius: var(--radius-btn); border: 1px solid var(--lg-border);
             background: rgba(255,255,255,0.02); color: rgba(255,255,255,0.5); cursor: pointer;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; transition: all var(--dur-base) var(--ease-out-expo);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; overflow: hidden;
+            transition: all var(--dur-base) var(--ease-out-expo); flex-shrink: 0;
         }
-        .format-btn:hover { color: #fff; background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
+        .format-btn::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%); pointer-events: none;
+        }
+        .format-btn:hover { color: #fff; background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.3); transform: translateY(-4px) scale(1.03); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .format-btn:active { transform: scale(0.95); }
         .format-btn.active {
             color: #fff; background: rgba(232,201,110,0.08); border-color: var(--gold);
-            transform: translateY(-3px); box-shadow: 0 15px 35px var(--gold-glow);
+            transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 35px var(--gold-glow), 0 0 0 1px var(--gold) inset;
         }
-        .btn-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .btn-icon { width: 72px; height: auto; max-height: 28px; object-fit: contain; transition: transform var(--dur-base) var(--ease-out-expo); }
+        .format-btn:hover .btn-icon { transform: scale(1.1); }
+        .btn-svg { color: currentColor; transition: transform var(--dur-base); }
+        .format-btn:hover .btn-svg { transform: scale(1.1); }
+        .btn-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         .btn-ratio { font-size: 0.65rem; opacity: 0.6; }
+        .btn-image-no-tint { filter: none !important; mix-blend-mode: normal !important; }
 
-        /* Production Spotlight Companion Module */
-        .yt-tile-container {
-            display: flex; flex-direction: column; width: 100%; background: rgba(255,255,255,0.01);
-            border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-card); padding: 1.25rem;
-            transition: all var(--dur-base) var(--ease-out-expo);
+        /* Premium Brand Buttons Image Normalization Engine */
+        .premium-logo-btn .btn-icon {
+            width: 78px;
+            height: 22px;
+            max-height: 22px;
+            object-fit: contain;
         }
+
+        /* YouTube-Style Tile (Right Side) */
+        .yt-tile-container {
+            display: flex; flex-direction: column; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05);
+            border-radius: var(--radius-card); padding: 1.25rem;
+            transition: all var(--dur-base) var(--ease-out-expo); position: relative; z-index: 10;
+        }
+        .yt-tile-container:hover { border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.03); }
         .yt-media-box {
             position: relative; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 12px;
-            overflow: hidden; border: 1px solid rgba(255,255,255,0.1); cursor: pointer;
+            overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 16px 32px rgba(0,0,0,0.6);
+            cursor: pointer;
         }
         .yt-thumb-btn { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-epic) var(--ease-out-expo); }
-        .yt-media-box:hover .yt-thumb-btn { transform: scale(1.04); }
+        .yt-media-box:hover .yt-thumb-btn { transform: scale(1.06); }
         .yt-play-icon {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 55px; height: 55px; background: rgba(0,0,0,0.6); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; border: 2px solid var(--gold); pointer-events: none;
+            width: 65px; height: 65px; background: rgba(0,0,0,0.6); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; border: 2px solid var(--gold);
+            pointer-events: none; transition: all var(--dur-fast) var(--ease-spring); backdrop-filter: blur(4px);
         }
-        .yt-tile-title { margin-top: 1rem; font-size: 1.1rem; font-weight: 700; color: #fff; }
-        .yt-tile-desc { margin-top: 0.5rem; font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
+        .yt-media-box:hover .yt-play-icon { transform: translate(-50%, -50%) scale(1.15); background: #000; box-shadow: 0 0 25px var(--gold-glow); }
+        .yt-tile-title { margin-top: 1rem; font-size: 1.1rem; font-weight: 700; color: #fff; letter-spacing: -0.2px; transition: color var(--dur-fast); }
+        .yt-tile-container:hover .yt-tile-title { color: var(--gold); }
+        .yt-tile-desc { margin-top: 0.6rem; font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+        .yt-tile-desc strong { color: rgba(255,255,255,0.85); font-weight: 600; }
+        .yt-video-el { width: 100%; height: 100%; object-fit: cover; display: none; }
 
-        /* Dedicated Starvel Phase Module Layout */
-        .trailer-view-container {
-            width: 100%; max-width: 1000px; margin: 0 auto; padding: 9rem var(--page-px) 4rem;
-            display: flex; flex-direction: column; gap: 2rem; align-items: center;
+        /* Secondary Sections */
+        .info-section { width: 100%; max-width: 900px; padding: 4rem var(--page-px); margin: 0 auto; }
+        .info-card { padding: clamp(2rem, 5vw, 3.5rem); text-align: center; }
+        .info-card h2 { font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 1.2rem; }
+        .info-card p { font-size: clamp(0.95rem, 2vw, 1.1rem); color: rgba(255,255,255,0.65); line-height: 1.8; margin-bottom: 2.5rem; }
+        .embed-label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 1rem; }
+        .video-embed { width: 100%; aspect-ratio: 16/9; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #000; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        .video-embed iframe { width: 100%; height: 100%; display: block; }
+
+        .support-section { width: 100%; max-width: 900px; padding: 0 var(--page-px) 4rem; margin: 0 auto; }
+        .support-card { padding: clamp(2rem, 5vw, 3.5rem); display: flex; gap: 3rem; align-items: center; }
+        .support-info { flex: 1; }
+        .support-title { font-size: clamp(1.3rem, 3vw, 1.7rem); font-weight: 700; margin-bottom: 0.8rem; letter-spacing: -0.3px; }
+        .support-text { font-size: 1rem; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 1.5rem; }
+        
+        .upi-pill {
+            display: inline-flex; align-items: center; gap: 12px; padding: 0.6rem 1.2rem;
+            border-radius: var(--radius-pill); border: 1px solid rgba(255,255,255,0.15); background: rgba(0,0,0,0.5);
+            margin-bottom: 1rem; transition: all var(--dur-base) var(--ease-out-expo); cursor: pointer;
         }
-        .back-btn { padding: 0.7rem 1.5rem; font-size: 0.85rem; width: fit-content; align-self: flex-start; }
+        .upi-pill:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+        .upi-label { font-size: 0.8rem; font-weight: 700; color: var(--gold); }
+        .upi-id { font-size: 0.95rem; font-weight: 600; color: #fff; letter-spacing: 0.5px; }
+        .copy-btn { background: none; border: none; color: var(--gold); cursor: pointer; transition: transform var(--dur-fast); }
+        .upi-pill:hover .copy-btn { transform: scale(1.15); color: #fff; }
+        .copy-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+        .support-subtext { font-size: 0.85rem; color: rgba(255,255,255,0.4); font-style: italic; }
 
-        /* VFX Pop-up Panels Engine */
+        .support-actions { display: flex; gap: 15px; flex-shrink: 0; }
+        .action-card {
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+            width: 140px; height: 160px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.02); text-decoration: none; cursor: pointer;
+            transition: all var(--dur-base) var(--ease-out-expo); position: relative; overflow: hidden;
+        }
+        .action-card::before {
+            content: ''; position: absolute; inset: 0; background: radial-gradient(circle at top, rgba(255,255,255,0.1), transparent); opacity: 0; transition: opacity var(--dur-base);
+        }
+        .action-card:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        .action-card:hover::before { opacity: 1; }
+        
+        /* QR Code Custom Image Asset Styles */
+        .qr-img-asset { width: 90px; height: 90px; object-fit: contain; border-radius: 8px; transition: transform var(--dur-base) var(--ease-spring); }
+        .action-card:hover .qr-img-asset { transform: scale(1.08); filter: drop-shadow(0 0 12px rgba(232,201,110,0.25)); }
+        
+        .ig-svg-wrap { width: 44px; height: 44px; color: rgba(255,255,255,0.7); transition: transform var(--dur-base) var(--ease-spring); }
+        .action-card:hover .ig-svg-wrap { transform: scale(1.1) rotate(5deg); color: #fff; filter: drop-shadow(0 0 12px rgba(232,201,110,0.3)); }
+        
+        .action-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); transition: color var(--dur-fast); }
+        .action-card:hover .action-label { color: #fff; }
+
+        /* VFX Pop-up Windows Engine Styles Optimization */
         .vfx-overlay {
             position: fixed; inset: 0; z-index: 9000; display: flex; align-items: center; justify-content: center;
-            padding: 2rem; background: rgba(0,0,0,0.95); opacity: 0; visibility: hidden; transition: all var(--dur-base);
+            padding: clamp(1rem, 3vw, 2.5rem); background: rgba(0,0,0,0.95); opacity: 0; visibility: hidden;
+            transition: opacity var(--dur-base) var(--ease-out-expo), visibility var(--dur-base) var(--ease-out-expo);
         }
-        .vfx-overlay.is-open { opacity: 1; visibility: visible; backdrop-filter: blur(20px); }
-        .vfx-panel { width: 100%; max-width: 800px; display: flex; flex-direction: column; gap: 1rem; }
-        .vfx-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .vfx-video-box { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; }
-        .vfx-video-el { width: 100%; height: 100%; object-fit: contain; }
+        .vfx-overlay.is-open { opacity: 1; visibility: visible; backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); }
+        .vfx-panel {
+            width: 100%; max-width: 1000px; display: flex; flex-direction: column; gap: 1.25rem;
+            transform: scale(0.96) translateY(25px); transition: transform var(--dur-epic) var(--ease-out-expo);
+        }
+        .vfx-overlay.is-open .vfx-panel { transform: scale(1) translateY(0); }
+        
+        .vfx-header {
+            display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem;
+            border-radius: 20px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+        }
+        .vfx-title { font-size: 1.1rem; font-weight: 700; color: #fff; letter-spacing: -0.2px; }
+        .vfx-controls { display: flex; align-items: center; gap: 15px; }
+        
+        .dolby-toggle {
+            display: flex; align-items: center; gap: 10px; padding: 0.5rem 1rem; border-radius: var(--radius-pill);
+            border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); cursor: pointer; transition: all var(--dur-fast);
+        }
+        .dolby-toggle:hover { background: rgba(255,255,255,0.06); }
+        .toggle-label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.4); transition: color var(--dur-fast); }
+        .dolby-toggle.is-active .toggle-label { color: var(--gold); }
+        .switch { width: 42px; height: 22px; background: rgba(255,255,255,0.1); border-radius: 22px; position: relative; transition: all var(--dur-fast); }
+        .switch-knob { position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; background: #fff; border-radius: 50%; transition: transform 0.3s var(--ease-spring), background 0.3s; }
+        .dolby-toggle.is-active .switch { background: rgba(232,201,110,0.2); border: 1px solid var(--gold); }
+        .dolby-toggle.is-active .switch-knob { transform: translateX(20px); background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+        
+        .vfx-video-box { 
+            position: relative; width: 100%; aspect-ratio: 16/9; background: #000; 
+            border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); 
+            box-shadow: 0 40px 100px rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center;
+        }
+        .vfx-video-badge { position: absolute; top: 20px; left: 20px; width: 90px; height: auto; z-index: 5; opacity: 0; display: none; transition: opacity 0.5s; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8)); }
+        .vfx-video-el { width: 100%; height: 100%; object-fit: contain; display: block; }
+        
+        .toast {
+            position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(20px);
+            background: rgba(20,20,25,0.9); backdrop-filter: blur(20px); border: 1px solid var(--gold); border-radius: var(--radius-pill);
+            padding: 0.8rem 1.8rem; font-size: 0.9rem; font-weight: 600; color: #fff; z-index: 9999; opacity: 0;
+            transition: all var(--dur-base) var(--ease-out-expo); box-shadow: 0 10px 30px rgba(232,201,110,0.2); pointer-events: none;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-        @media (max-width: 992px) { .main-showcase-grid { grid-template-columns: 1fr; } }
+        /* Professional Footer Styling */
+        .professional-footer {
+            width: 100%;
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem 0;
+            font-family: var(--font);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: rgba(255, 255, 255, 0.4);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .professional-footer span {
+            color: var(--gold);
+            text-shadow: 0 0 12px var(--gold-glow);
+        }
+
+        /* Breakpoints & Responsive Adaptations */
+        @media (max-width: 992px) { .main-showcase-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+        @media (max-width: 768px) { .support-card { flex-direction: column; text-align: center; } .support-info { align-items: center; display: flex; flex-direction: column; } .support-actions { width: 100%; justify-content: center; } }
+        @media (max-width: 740px) { .controls { max-width: 480px; margin: 0 auto; } }
+        
+        /* Mobile Display Carousel Menu Optimization */
+        @media (max-width: 600px) { 
+            .dropdown-menu { 
+                right: auto; 
+                left: 50%; 
+                transform: translateX(-50%) translateY(-15px) scale(0.95); 
+                grid-template-columns: none; 
+                display: flex !important; 
+                flex-direction: row !important; 
+                overflow-x: auto !important; 
+                scroll-snap-type: x mandatory; 
+                gap: 14px; 
+                width: calc(100vw - 2rem); 
+                max-width: calc(100vw - 2rem);
+                padding: 1.25rem 1rem; 
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            } 
+            .dropdown-menu::-webkit-scrollbar { display: none; }
+            .dropdown.is-active .dropdown-menu { transform: translateX(-50%) translateY(0) scale(1); } 
+            .dropdown-item { flex: 0 0 260px !important; scroll-snap-align: start; } 
+            .action-card { width: 120px; height: 140px; } 
+        }
+        
+        @media (max-width: 420px) { 
+            .dropdown-menu { width: calc(100vw - 1.5rem); max-width: calc(100vw - 1.5rem); } 
+            .dropdown-item { flex: 0 0 230px !important; }
+        }
+
+        /* Reduced Motion Guard */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+            .magnetic-target, .glass-btn, .format-btn, .yt-media-box, .action-card { transform: none !important; }
+            .glass-card { transform: none !important; }
             #bgImage { transform: none !important; animation: none !important; }
         }
     </style>
@@ -312,225 +496,47 @@
 </div>
 
 <div class="scroll-progress" id="scrollProgress"></div>
+
 <div class="cinematic-overlay"></div>
 
 <div class="bg-image-wrapper">
-    <img id="bgImage" src="world.jpg" alt="Cinematic Background Overlay">
+    <img id="bgImage" src="world.jpg" alt="Cinematic World Map Background">
 </div>
 
 <div class="page-wrapper" id="mainContent">
 
     <nav class="navbar" id="navbar">
-        <div class="magnetic-wrap" onclick="switchView('varanasi-view')">
-            <img class="nav-logo" src="favicon.png" alt="Starvel Studios Logo">
+        <div class="magnetic-wrap magnetic-target">
+            <img class="nav-logo" src="favicon.png" alt="Starvel Studios Logo" decoding="async">
         </div>
         
-        <div class="nav-buttons-group">
-            <button class="glass-btn" id="playTrailerBtn" onclick="switchView('starvel-phase1-view')">
-                Play Starvel Trailer
+        <div class="dropdown magnetic-wrap magnetic-target" id="vfxDropdown">
+            <button class="glass-btn dropdown-trigger" id="vfxTriggerBtn" aria-expanded="false" aria-haspopup="true">
+                VFX by Sathwik <span class="chevron">▾</span>
             </button>
-
-            <div class="dropdown" id="vfxDropdown">
-                <button class="glass-btn" id="vfxTriggerBtn" aria-expanded="false" aria-haspopup="true">
-                    VFX by Sathwik ▾
-                </button>
-                <div class="dropdown-menu" role="menu">
-                    <div class="dropdown-item" role="menuitem" onclick="openVfx('https://www.dropbox.com/scl/fi/xxfbjavx6ra2ti696qzbr/strangerthings-part1.mp4?rlkey=fz3epel4jv4tmocl6jh11jufs&st=pq9mpuuw&raw=1','Stranger Things VFX Reel')">
-                        <div class="di-thumb"><img src="Stranger Things PART 1.png" alt="Stranger Things VFX"></div>
-                        <div class="di-meta"><div class="di-title">Stranger Things</div></div>
+            <div class="dropdown-menu" role="menu">
+                <div class="dropdown-item magnetic-target" role="menuitem" onclick="openVfx('https://www.dropbox.com/scl/fi/xxfbjavx6ra2ti696qzbr/strangerthings-part1.mp4?rlkey=fz3epel4jv4tmocl6jh11jufs&st=pq9mpuuw&raw=1','Stranger Things VFX Reel','Stranger Things PART 1.png',false)">
+                    <div class="di-thumb"><img src="Stranger Things PART 1.png" alt="Stranger Things VFX" decoding="async" loading="lazy"></div>
+                    <div class="di-meta">
+                        <div class="di-title">Stranger Things</div>
+                        <div class="di-desc">VFX reel by Starvel Studios.</div>
                     </div>
-                    <div class="dropdown-item" role="menuitem" onclick="openVfx('https://www.dropbox.com/scl/fi/66ragirza0o8qo62wkmx3/VECNA-S-CURSE.mp4?rlkey=df6r4860uls1g2rpmu11jcw6s&st=1qzc8yw3&raw=1','Vecna\'s Curse')">
-                        <div class="di-thumb"><img src="Stranger Things PART 1.png" alt="Vecna's Curse"></div>
-                        <div class="di-meta"><div class="di-title">Vecna's Curse</div></div>
+                </div>
+                <div class="dropdown-item magnetic-target" role="menuitem" onclick="openVfx('https://www.dropbox.com/scl/fi/66ragirza0o8qo62wkmx3/VECNA-S-CURSE.mp4?rlkey=df6r4860uls1g2rpmu11jcw6s&st=1qzc8yw3&raw=1','Vecna\'s Curse','Stranger Things PART 1.png',false)">
+                    <div class="di-thumb"><img src="Stranger Things PART 1.png" alt="Vecna's Curse" decoding="async" loading="lazy"></div>
+                    <div class="di-meta">
+                        <div class="di-title">Vecna's Curse</div>
+                        <div class="di-desc">VFX breakdown by Starvel Studios.</div>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div id="varanasi-view" class="view-section active-view">
-        <header class="hero">
-            <img src="1.43.png" alt="Varanasi" class="hero-title-img scale-in is-visible">
-            <p class="hero-subtitle fade-up is-visible">
-                Explore premium theatre exhibition frameworks, custom CGI VFX breakdowns, and seamless true 1.43:1 IMAX format aspect ratio switches.
-            </p>
-        </header>
-
-        <main class="main-showcase-grid">
-            <div class="video-player-container glass-card scale-in is-visible">
-                <div id="playerContainer">
-                    <div class="video-area">
-                        <div class="video-wrapper">
-                            <video id="varanasiVideo" class="main-video" controls poster="thumbnail.jpg">
-                                <source src="https://www.dropbox.com/scl/fi/9hclq939q87qg733q5fkm/Varanasi-Trailer.mp4?rlkey=xts1f6004jckmhpghlyv4v9n6&st=758mlyv7&raw=1" type="video/mp4">
-                            </video>
-                        </div>
-                    </div>
-                    <div class="controls">
-                        <button class="format-btn active" onclick="setFormat('2.39')">
-                            <span class="btn-label">Scope</span>
-                            <span class="btn-ratio">2.39:1</span>
-                        </button>
-                        <button class="format-btn" onclick="setFormat('1.90')">
-                            <span class="btn-label">IMAX Digital</span>
-                            <span class="btn-ratio">1.90:1</span>
-                        </button>
-                        <button class="format-btn" onclick="setFormat('1.43')">
-                            <span class="btn-label">IMAX 70MM</span>
-                            <span class="btn-ratio">1.43:1</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="yt-tile-container glass-card slide-right is-visible">
-                <div class="yt-media-box">
-                    <img src="world.jpg" alt="VFX Breakdown" class="yt-thumb-btn">
-                    <div class="yt-play-icon">▶</div>
-                </div>
-                <h3 class="yt-tile-title">Production VFX Breakdown</h3>
-                <p class="yt-tile-desc">Deep dive into custom asset creation, digital environments, and composite workflows crafted for <strong>Varanasi</strong>.</p>
-            </div>
-        </main>
-    </div>
-
-    <div id="starvel-phase1-view" class="view-section">
-        <div class="trailer-view-container">
-            <button class="glass-btn back-btn" onclick="switchView('varanasi-view')">
-                ← Go Back to Varanasi Framework
-            </button>
-            
-            <div class="video-player-container glass-card">
-                <div class="video-wrapper" style="aspect-ratio: 16/9;">
-                    <video id="phase1Video" class="main-video" controls poster="world.jpg">
-                        <source src="https://www.dropbox.com/scl/fi/f7sh70n094p7k801iia3v/Starvel-Phase1-Trailer.mp4?rlkey=example&raw=1" type="video/mp4">
-                    </video>
-                </div>
-                <div style="padding: 0.5rem; text-align: center;">
-                    <h2 style="color: var(--gold); margin-bottom: 0.4rem;">Starvel Phase 1 Official Trailer</h2>
-                    <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Experience the structural blueprint and upcoming multi-project cinematic roadmap.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <footer class="professional-footer">
+        Website Designed by <span>Sathwik</span>
+    </footer>
 </div>
 
-<div class="vfx-overlay" id="vfxOverlay" onclick="closeVfxWindow()">
-    <div class="vfx-panel glass-card" onclick="event.stopPropagation()">
-        <div class="vfx-header">
-            <span class="vfx-title" id="vfxWindowTitle">VFX Breakdown Panel</span>
-            <button class="glass-btn" style="padding: 0.4rem 1rem;" onclick="closeVfxWindow()">Close</button>
-        </div>
-        <div class="vfx-video-box">
-            <video id="vfxVideoElement" class="vfx-video-el" controls></video>
-        </div>
-    </div>
-</div>
-
-<script>
-    const lenis = new Lenis();
-    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
-
-    // Multi-View System Controller
-    function switchView(viewId) {
-        document.querySelectorAll('.view-section').forEach(view => {
-            view.classList.remove('active-view');
-        });
-
-        const targetView = document.getElementById(viewId);
-        if (targetView) {
-            targetView.classList.add('active-view');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        const varanasiVid = document.getElementById('varanasiVideo');
-        const phase1Vid = document.getElementById('phase1Video');
-
-        if (viewId === 'starvel-phase1-view') {
-            if (varanasiVid) varanasiVid.pause();
-            if (phase1Vid) phase1Vid.play().catch(() => {});
-        } else if (viewId === 'varanasi-view') {
-            if (phase1Vid) phase1Vid.pause();
-        }
-    }
-
-    // Dropdown Interface Monitors
-    const triggerBtn = document.getElementById('vfxTriggerBtn');
-    const vfxDropdown = document.getElementById('vfxDropdown');
-
-    triggerBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isActive = vfxDropdown.classList.toggle('is-active');
-        triggerBtn.setAttribute('aria-expanded', isActive);
-    });
-
-    document.addEventListener('click', () => {
-        vfxDropdown.classList.remove('is-active');
-        triggerBtn.setAttribute('aria-expanded', 'false');
-    });
-
-    // Ratio Matrix Manipulation Engine
-    function setFormat(ratio) {
-        const playerContainer = document.getElementById('playerContainer');
-        const buttons = document.querySelectorAll('.format-btn');
-        
-        buttons.forEach(btn => btn.classList.remove('active'));
-        event.currentTarget.classList.add('active');
-
-        if (ratio === '2.39') playerContainer.style.setProperty('--current-ratio', '2.39');
-        if (ratio === '1.90') playerContainer.style.setProperty('--current-ratio', '1.90');
-        if (ratio === '1.43') playerContainer.style.setProperty('--current-ratio', '1.43');
-    }
-
-    // Overlay Controller Subsystems
-    function openVfx(url, title) {
-        document.getElementById('vfxWindowTitle').innerText = title;
-        const vfxVid = document.getElementById('vfxVideoElement');
-        vfxVid.src = url;
-        document.getElementById('vfxOverlay').classList.add('is-open');
-        vfxVid.play().catch(() => {});
-        if (document.getElementById('varanasiVideo')) document.getElementById('varanasiVideo').pause();
-    }
-
-    function closeVfxWindow() {
-        document.getElementById('vfxOverlay').classList.remove('is-open');
-        const vfxVid = document.getElementById('vfxVideoElement');
-        vfxVid.pause();
-        vfxVid.src = "";
-    }
-
-    // Loading Screen Operations Tracker
-    window.addEventListener('DOMContentLoaded', () => {
-        const bar = document.getElementById('loaderBar');
-        const logo = document.getElementById('loaderLogo');
-        setTimeout(() => { bar.style.width = '40%'; logo.style.opacity = '0.5'; }, 100);
-        setTimeout(() => { bar.style.width = '85%'; logo.style.opacity = '1'; }, 300);
-        
-        window.addEventListener('load', () => {
-            bar.style.width = '100%';
-            setTimeout(() => {
-                document.getElementById('loader').style.opacity = '0';
-                document.getElementById('loader').style.visibility = 'hidden';
-                document.body.classList.add('bg-loaded');
-            }, 200);
-        });
-    });
-
-    // Window Scroll Progression Framework
-    window.addEventListener('scroll', () => {
-        const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-        if (totalScroll > 0) {
-            const progress = (window.pageYOffset / totalScroll);
-            document.getElementById('scrollProgress').style.transform = `scaleX(${progress})`;
-        }
-        if (window.scrollY > 50) {
-            document.getElementById('navbar').classList.add('scrolled');
-        } else {
-            document.getElementById('navbar').classList.remove('scrolled');
-        }
-    });
-</script>
 </body>
 </html>
