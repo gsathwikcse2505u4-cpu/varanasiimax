@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>IMAX FORMATS & Dolby Vision Explorer | Starvel Studios</title>
+    <title>IMAX FORMATS & Dolby Vision Explorer | Varanasi</title>
     <meta name="description" content="Experience S.S. Rajamouli's Varanasi starring Superstar Mahesh Babu. Explore premium theatre exhibition frameworks, custom CGI VFX breakdowns, and seamless true 1.43:1 IMAX format aspect ratio switches.">
-    <meta name="keywords" content="IMAX, Dolby Vision, aspect ratio, Varanasi, Starvel Studios, Mahesh Babu, cinema theatre, premium formats, SSMB29, VFX shots, G Sathwik">
+    <meta name="keywords" content="IMAX, Dolby Vision, aspect ratio, Varanasi, Mahesh Babu, cinema theatre, premium formats, SSMB29, VFX shots, G Sathwik">
     <meta name="author" content="G. Sathwik">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://www.dropbox.com" crossorigin>
@@ -20,7 +20,7 @@
     <script src="https://unpkg.com/lenis@1.3.25/dist/lenis.min.js"></script>
     <style>
         /* ============================================================
-            CINEMATIC DESIGN TOKENS & EASING CURVES
+           CINEMATIC DESIGN TOKENS & EASING CURVES
            ============================================================ */
         :root {
             --lg-bg:            rgba(255,255,255,0.03);
@@ -63,7 +63,7 @@
             -webkit-font-smoothing: antialiased;
         }
         /* ============================================================
-            LOADING SCREEN & SCROLL PROGRESS
+           LOADING SCREEN & SCROLL PROGRESS
            ============================================================ */
         .loader-wrapper {
             position: fixed; inset: 0; z-index: 99999; background: #030305;
@@ -80,7 +80,7 @@
             box-shadow: 0 0 10px var(--gold-glow);
         }
         /* ============================================================
-            CINEMATIC BACKGROUND OVERLAYS & MOTION EFFECTS
+           CINEMATIC BACKGROUND OVERLAYS & MOTION EFFECTS
            ============================================================ */
         .bg-image-wrapper {
             position: fixed;
@@ -115,7 +115,7 @@
                         radial-gradient(circle at 50% 50%, transparent 40%, rgba(0,0,0,0.9) 120%);
         }
         /* ============================================================
-            CORE ANIMATION CLASSES
+           CORE ANIMATION CLASSES
            ============================================================ */
         .reveal-mask {
             clip-path: inset(100% 0 0 0); transform: translateY(40px); opacity: 0;
@@ -142,7 +142,7 @@
         }
         .slide-right.is-visible { transform: translateX(0); opacity: 1; filter: blur(0); }
         /* ============================================================
-            UI COMPONENTS
+           UI COMPONENTS
            ============================================================ */
         .page-wrapper { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; padding-bottom: 5rem; }
         /* Navbar */
@@ -219,8 +219,8 @@
         .hero { width: 100%; display: flex; flex-direction: column; align-items: center; padding: 10rem var(--page-px) 2rem; text-align: center; }
         .hero-title-img { max-width: min(450px, 90vw); width: 100%; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.9)); }
         .hero-subtitle { margin-top: 1.5rem; font-size: clamp(0.9rem, 2vw, 1.1rem); color: rgba(255,255,255,0.6); max-width: 600px; line-height: 1.6; }
-        /* Main Grid */
-        .main-showcase-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 2rem; width: 100%; max-width: 1340px; padding: 0 var(--page-px); margin-bottom: 4rem; align-items: start; }
+        /* Main Container */
+        .main-showcase-container { width: 100%; max-width: 1000px; padding: 0 var(--page-px); margin-bottom: 4rem; }
         
         /* Video Player Area */
         .video-player-container { padding: 1.25rem; display: flex; flex-direction: column; gap: 1.25rem; width: 100%; }
@@ -270,33 +270,6 @@
             max-height: 22px;
             object-fit: contain;
         }
-        /* YouTube-Style Tile (Right Side) */
-        .yt-tile-container {
-            display: flex; flex-direction: column; width: 100%; height: 100%;
-            background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05);
-            border-radius: var(--radius-card); padding: 1.25rem;
-            transition: all var(--dur-base) var(--ease-out-expo); position: relative; z-index: 10;
-        }
-        .yt-tile-container:hover { border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.03); }
-        .yt-media-box {
-            position: relative; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 12px;
-            overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 16px 32px rgba(0,0,0,0.6);
-            cursor: pointer;
-        }
-        .yt-thumb-btn { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-epic) var(--ease-out-expo); }
-        .yt-media-box:hover .yt-thumb-btn { transform: scale(1.06); }
-        .yt-play-icon {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 65px; height: 65px; background: rgba(0,0,0,0.6); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; border: 2px solid var(--gold);
-            pointer-events: none; transition: all var(--dur-fast) var(--ease-spring); backdrop-filter: blur(4px);
-        }
-        .yt-media-box:hover .yt-play-icon { transform: translate(-50%, -50%) scale(1.15); background: #000; box-shadow: 0 0 25px var(--gold-glow); }
-        .yt-tile-title { margin-top: 1rem; font-size: 1.1rem; font-weight: 700; color: #fff; letter-spacing: -0.2px; transition: color var(--dur-fast); }
-        .yt-tile-container:hover .yt-tile-title { color: var(--gold); }
-        .yt-tile-desc { margin-top: 0.6rem; font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
-        .yt-tile-desc strong { color: rgba(255,255,255,0.85); font-weight: 600; }
-        .yt-video-el { width: 100%; height: 100%; object-fit: cover; display: none; }
         /* Secondary Sections */
         .info-section { width: 100%; max-width: 900px; padding: 4rem var(--page-px); margin: 0 auto; }
         .info-card { padding: clamp(2rem, 5vw, 3.5rem); text-align: center; }
@@ -414,7 +387,6 @@
             text-shadow: 0 0 12px var(--gold-glow);
         }
         /* Breakpoints & Responsive Adaptations */
-        @media (max-width: 992px) { .main-showcase-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
         @media (max-width: 768px) { .support-card { flex-direction: column; text-align: center; } .support-info { align-items: center; display: flex; flex-direction: column; } .support-actions { width: 100%; justify-content: center; } }
         @media (max-width: 740px) { .controls { max-width: 480px; margin: 0 auto; } }
         
@@ -450,7 +422,7 @@
         /* Reduced Motion Guard */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
-            .magnetic-target, .glass-btn, .format-btn, .yt-media-box, .action-card { transform: none !important; }
+            .magnetic-target, .glass-btn, .format-btn, .action-card { transform: none !important; }
             .glass-card { transform: none !important; }
             #bgImage { transform: none !important; animation: none !important; }
         }
@@ -458,7 +430,7 @@
 </head>
 <body>
 <div class="loader-wrapper" id="loader">
-    <img src="favicon.png" alt="Starvel" class="loader-logo" id="loaderLogo">
+    <img src="favicon.png" alt="Varanasi" class="loader-logo" id="loaderLogo">
     <div class="loader-bar-container"><div class="loader-bar" id="loaderBar"></div></div>
 </div>
 <div class="scroll-progress" id="scrollProgress"></div>
@@ -469,26 +441,26 @@
 <div class="page-wrapper" id="mainContent">
     <nav class="navbar" id="navbar">
         <div class="magnetic-wrap magnetic-target">
-            <img class="nav-logo" src="favicon.png" alt="Starvel Studios Logo" decoding="async">
+            <img class="nav-logo" src="favicon.png" alt="Varanasi Logo" decoding="async">
         </div>
         
         <div class="dropdown magnetic-wrap magnetic-target" id="vfxDropdown">
             <button class="glass-btn dropdown-trigger" id="vfxTriggerBtn" aria-expanded="false" aria-haspopup="true">
-                VFX by Sathwik <span class="chevron">▾</span>
+                VFX Breakdown <span class="chevron">▾</span>
             </button>
             <div class="dropdown-menu" role="menu">
                 <div class="dropdown-item magnetic-target" role="menuitem" onclick="openVfx('https://www.dropbox.com/scl/fi/xxfbjavx6ra2ti696qzbr/strangerthings-part1.mp4?rlkey=fz3epel4jv4tmocl6jh11jufs&st=pq9mpuuw&raw=1','Stranger Things VFX Reel','Stranger Things PART 1.png',false)">
                     <div class="di-thumb"><img src="Stranger Things PART 1.png" alt="Stranger Things VFX" decoding="async" loading="lazy"></div>
                     <div class="di-meta">
                         <div class="di-title">Stranger Things</div>
-                        <div class="di-desc">VFX reel by Starvel Studios.</div>
+                        <div class="di-desc">VFX reel breakdown.</div>
                     </div>
                 </div>
                 <div class="dropdown-item magnetic-target" role="menuitem" onclick="openVfx('https://www.dropbox.com/scl/fi/66ragirza0o8qo62wkmx3/VECNA-S-CURSE.mp4?rlkey=df6r4860uls1g2rpmu11jcw6s&st=1qzc8yw3&raw=1','Vecna\'s Curse','Stranger Things PART 1.png',false)">
                     <div class="di-thumb"><img src="Stranger Things PART 1.png" alt="Vecna's Curse" decoding="async" loading="lazy"></div>
                     <div class="di-meta">
                         <div class="di-title">Vecna's Curse</div>
-                        <div class="di-desc">VFX breakdown by Starvel Studios.</div>
+                        <div class="di-desc">VFX breakdown sequence.</div>
                     </div>
                 </div>
                 <div class="dropdown-item magnetic-target" role="menuitem" onclick="openVfx('https://www.dropbox.com/scl/fi/hsqigxe3gynjljlh1bpts/VFX-BREAKDOWN-VIDEO.mp4?rlkey=6c8uz7zgccncffr4ownhya47i&st=zzikdhqv&raw=1','Oppenheimer VFX','OPPENHEIMER.png',true)">
@@ -532,7 +504,7 @@
         </div>
         <p class="hero-subtitle fade-up load-seq-2">Select a cinema format below to see how each aspect ratio transforms the Varanasi teaser in real time.</p>
     </section>
-    <div class="main-showcase-grid">
+    <div class="main-showcase-container">
         
         <div class="glass-card scale-in load-seq-3 player-card">
             <div class="glare"></div>
@@ -592,22 +564,6 @@
                 </div>
             </div>
         </div>
-        <div class="glass-card yt-tile-container slide-right load-seq-4">
-            <div class="glare"></div>
-            <div class="yt-media-box magnetic-target" id="ytMediaBox" onclick="triggerInlinePlay()">
-                <img id="ytThumb" src="thumbnail.jpg" class="yt-thumb-btn" alt="Starvel Phase 1 Trailer" fetchpriority="high" decoding="async">
-                <div class="yt-play-icon" id="ytPlayIcon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--gold)"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-                <video id="ytInlineVideo" class="yt-video-el dolby-grade" src="https://www.dropbox.com/scl/fi/pv5saljoecekqa5gbstd8/Starvel-Phase-1.mp4?rlkey=e2mggconb74ij3brp2gz16syo&st=d6kxf87q&raw=1" controls playsinline></video>
-            </div>
-            <div class="yt-tile-title">Starvel Phase 1 Trailer</div>
-            <p class="yt-tile-desc">
-                <strong>Starvel Studios</strong> is a cinematic franchise born from our childhood, spanning the years 2019 to 2026. The original founding crew includes Sathwik Gurram, Suhas, Darshan Inturi, Rithwik Gurram, Mohit Veerepalli, and Harshita Nelluri.
-                <br><br>
-                Beginning in 2027, we will return with a brand-new cast and crew, guided by directors with a unique vision.
-            </p>
-        </div>
     </div>
     <section class="info-section scroll-trigger fade-up">
         <div class="info-card glass-card">
@@ -636,7 +592,7 @@
                 <p class="support-subtext">Every contribution helps keep this free &amp; updated.<br>(PS: I'm just a student ✌️)</p>
             </div>
             <div class="support-actions">
-                <a href="https://www.instagram.com/_starvelstudios_/" target="_blank" rel="noopener" class="action-card magnetic-target" aria-label="Follow Starvel Studios on Instagram">
+                <a href="https://www.instagram.com/_starvelstudios_/" target="_blank" rel="noopener" class="action-card magnetic-target" aria-label="Follow on Instagram">
                     <div class="ig-svg-wrap">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -707,7 +663,7 @@
             card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px)`;
         });
     });
-    // 3. Pre-loader Cinematic Sequence (Optimized with instant Fallback Entry Engine)
+    // 3. Pre-loader Cinematic Sequence
     const loaderBar = document.getElementById('loaderBar');
     const loaderWrapper = document.getElementById('loader');
     const loaderLogo = document.getElementById('loaderLogo');
@@ -741,7 +697,6 @@
         
         setTimeout(() => document.querySelector('.load-seq-2').classList.add('is-visible'), 200);
         setTimeout(() => document.querySelector('.load-seq-3').classList.add('is-visible'), 400);
-        setTimeout(() => document.querySelector('.load-seq-4').classList.add('is-visible'), 600);
         
         setTimeout(() => {
             const btns = document.querySelectorAll('.load-stagger-btn');
@@ -765,9 +720,6 @@
     // =========================================================================
     
     const mainVid = document.getElementById('mainVideo');
-    const ytInlineVideo = document.getElementById('ytInlineVideo');
-    const ytThumb = document.getElementById('ytThumb');
-    const ytPlayIcon = document.getElementById('ytPlayIcon');
     const vfxDropdown = document.getElementById('vfxDropdown');
     const vfxTriggerBtn = document.getElementById('vfxTriggerBtn');
     // VFX Dropdown Toggle
@@ -791,7 +743,6 @@
         const vid     = document.getElementById('vfxVideo');
         const titleEl = document.getElementById('vfxTitle');
         if (mainVid) mainVid.pause();
-        if (ytInlineVideo) ytInlineVideo.pause();
         titleEl.textContent = title;
         vid.src = src;
         vid.poster = poster;
@@ -829,14 +780,6 @@
         }
     }
     function toggleDolby() { vfxDolbyOn = !vfxDolbyOn; applyVfxDolby(vfxDolbyOn); }
-    // Phase 1 YT Tile Logic
-    function triggerInlinePlay() {
-        if (mainVid) mainVid.pause();
-        ytThumb.style.display = 'none';
-        ytPlayIcon.style.display = 'none';
-        ytInlineVideo.style.display = 'block';
-        ytInlineVideo.play().catch(err => console.warn("Inline player loading error:", err));
-    }
     // Format Switching Framework
     function changeFormat(ratio, btn, dolby) {
         const container = document.getElementById('playerContainer');
